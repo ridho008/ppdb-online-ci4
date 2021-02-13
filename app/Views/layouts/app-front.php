@@ -12,6 +12,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/assets/demo/demo.css" rel="stylesheet" />
   <link href="/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet" />
 </head>
 <body>
    <!-- Navbar Front End -->
@@ -25,11 +26,11 @@
    <!-- /Content Front -->
 
    <!-- Footer -->
-   <div class="copyright text-center">
+   <div class="copyright text-center mt-2">
          &copy;
       <script>
         document.write(new Date().getFullYear())
-      </script>, made with <i class="material-icons">favorite</i> by Ridho Surya</a>.
+      </script>, made with <i class="material-icons text-danger">favorite</i> by Ridho Surya</a>.
     </div>
    <!-- /Footer -->
 

@@ -1,0 +1,11 @@
+#navbarNav .navbar-nav li:hover {
+   background-color: rgba(200, 200, 200, 0.2);
+   color: #3C4858;
+   box-shadow: none;
+}
+
+#navbarNav li.active > a {
+   background-color: rgba(200, 200, 200, 0.2);
+   color: #3C4858;
+   box-shadow: none;
+}
