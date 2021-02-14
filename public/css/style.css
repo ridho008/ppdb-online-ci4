@@ -9,3 +9,7 @@
    color: #3C4858;
    box-shadow: none;
 }
+
+ul li {
+   list-style: none;
+}

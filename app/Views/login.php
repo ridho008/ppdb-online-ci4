@@ -29,6 +29,22 @@ $submit = [
 					<h4 class="card-title text-center">Halaman Login</h4>
 				</div>
 				<div class="card-body">
+					<?php 
+					$session = session();
+					$errors = $session->getFlashdata('errors');
+					$success = $session->getFlashdata('success');
+					?>
+					<?php if($errors != null) : ?>
+						<?php foreach ($errors as $error) : ?>
+							<ul>
+				      		<li>
+									<div class="alert alert-danger" role="alert">
+				      				<?= $error ?>
+			      				</div>
+				      		</li>
+					      </ul>
+					   <?php endforeach ?>
+					<?php endif; ?>
 					<div class="form-group">
 						<?= form_label('Username', 'username'); ?>
 						<?= form_input($username); ?>
