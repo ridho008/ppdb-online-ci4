@@ -6,7 +6,8 @@
 $username = [
 	'name' => 'username',
 	'id' => 'username',
-	'class' => 'form-control'
+	'class' => 'form-control',
+	'autofocus' => 'on'
 ];
 $password = [
 	'name' => 'password',
@@ -45,6 +46,12 @@ $submit = [
 					      </ul>
 					   <?php endforeach ?>
 					<?php endif; ?>
+					
+					<?php if($success != null) : ?>
+				      <div class="alert alert-success" role=alert>
+				         <h4>Sukses <?= $success; ?></h4>
+				      </div>
+				   <?php endif; ?>
 					<div class="form-group">
 						<?= form_label('Username', 'username'); ?>
 						<?= form_input($username); ?>

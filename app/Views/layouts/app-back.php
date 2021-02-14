@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php 
+$session = session();
+$errors = $session->getFlashdata('errors');
+$success = $session->getFlashdata('success');
+?>
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
@@ -33,26 +37,26 @@
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item active  ">
+          <li class="nav-item<?= (uri_string() == 'admin') ? ' active' : '' ?>">
             <a class="nav-link" href="/admin">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+          <li class="nav-item<?= (uri_string() == 'pekerjaan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/pekerjaan">
               <i class="material-icons">work</i>
               <p>Pekerjaan</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+          <li class="nav-item<?= (uri_string() == 'pendidikan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/pendidikan">
               <i class="material-icons">school</i>
               <p>Pendidikan</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+          <li class="nav-item<?= (uri_string() == 'agama') ? ' active' : '' ?>">
+            <a class="nav-link" href="/agama">
               <i class="material-icons">chalet</i>
               <p>Agama</p>
             </a>
@@ -69,6 +73,8 @@
               <?php 
               if(uri_string() == 'admin') {
                 echo "Dashboard";
+              } else if(uri_string() == 'pekerjaan') {
+                echo "Pekerjaan";
               }
 
               ?>
@@ -111,6 +117,23 @@
       </nav>
       <!-- End Navbar -->
       <div class="content">
+        <?php if($errors != null) : ?>
+          <?php foreach ($errors as $error) : ?>
+            <ul>
+                <li>
+                <div class="alert alert-danger" role="alert">
+                    <?= $error ?>
+                  </div>
+                </li>
+              </ul>
+           <?php endforeach ?>
+        <?php endif; ?>
+        
+        <?php if($success != null) : ?>
+            <div class="alert alert-success" role=alert>
+               <h4>Sukses <?= $success; ?></h4>
+            </div>
+         <?php endif; ?>
         <?= $this->renderSection('content'); ?>
       </div>
       <footer class="footer">
@@ -261,7 +284,14 @@
   <script src="/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="/assets/demo/demo.js"></script>
+  <script src="/js/script.js"></script>
   <script>
+    // hidden alert to success
+    window.setTimeout(function() {
+      $(".alert").slideUp(500, function() {
+          $(this).remove();
+      });
+  }, 5000);
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');

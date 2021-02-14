@@ -57,4 +57,16 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		]
 	];
+
+	public $pekerjaan = [
+		'pekerjaan' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $pekerjaan_errors = [
+		'pekerjaan' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }
