@@ -69,4 +69,64 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $pendidikan = [
+		'pendidikan' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $pendidikan_errors = [
+		'pendidikan' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
+
+	public $agama = [
+		'agama' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $agama_errors = [
+		'agama' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
+
+	public $user = [
+		'username' => [
+			'rules' => 'required'
+		],
+		'password' => [
+			'rules' => 'required'
+		],
+		'nama' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $user_errors = [
+		'username' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'password' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'nama' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
+
+	public $penghasilan = [
+		'penghasilan' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $penghasilan_errors = [
+		'penghasilan' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }

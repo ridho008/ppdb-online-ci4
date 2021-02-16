@@ -61,6 +61,18 @@ $success = $session->getFlashdata('success');
               <p>Agama</p>
             </a>
           </li>
+          <li class="nav-item<?= (uri_string() == 'user') ? ' active' : '' ?>">
+            <a class="nav-link" href="/user">
+              <i class="material-icons">manage_accounts</i>
+              <p>User</p>
+            </a>
+          </li>
+          <li class="nav-item<?= (uri_string() == 'penghasilan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/penghasilan">
+              <i class="material-icons">attach_money</i>
+              <p>Penghasilan</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -75,6 +87,14 @@ $success = $session->getFlashdata('success');
                 echo "Dashboard";
               } else if(uri_string() == 'pekerjaan') {
                 echo "Pekerjaan";
+              } else if(uri_string() == 'pendidikan') {
+                echo "Pendidikan";
+              } else if(uri_string() == 'agama') {
+                echo "Agama";
+              } else if(uri_string() == 'penghasilan') {
+                echo "Penghasilan";
+              } else if(uri_string() == 'user') {
+                echo "User";
               }
 
               ?>

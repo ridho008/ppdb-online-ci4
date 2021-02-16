@@ -3,8 +3,8 @@
 <?= $this->section('content'); ?>
 <div class="row">
    <div class="col-md-3">
-      <button type="button" class="btn btn-primary" id="formPekerjaanTambah" data-toggle="modal" data-target="#formModalTambahPekerjaan">
-        Tambah Pekerjaan
+      <button type="button" class="btn btn-primary" id="formPendidikanTambah" data-toggle="modal" data-target="#formModalTambahPendidikan">
+        Tambah Pendidikan
       </button>
    </div>
    <div class="col-md-3">
@@ -23,7 +23,7 @@
    <div class="col-md-12">
       <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Data Pekerjaan</h4>
+            <h4 class="card-title ">Data Pendidikan</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -31,20 +31,20 @@
                 <thead class="text-primary">
                    <tr>
                       <th>No</th>
-                      <th>Pekerjaan</th>
+                      <th>Pendidikan</th>
                       <th><i class="material-icons">settings</i></th>
                    </tr>
                 </thead>
                 <tbody>
-                  <?php $no = 1; foreach($pekerjaan as $key => $p) : ?>
+                  <?php $no = 1; foreach($pendidikan as $key => $p) : ?>
                   <tr>
                      <td><?= $offset + $key + 1; ?></td>
-                     <td><?= $p->pekerjaan; ?></td>
+                     <td><?= $p->pendidikan; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formPekerjaanEdit" data-toggle="modal" data-target="#formModalTambahPekerjaan" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formPendidikanEdit" data-toggle="modal" data-target="#formModalTambahPendidikan" data-id="<?= $p->id ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
-                         <?= form_open('/pekerjaan/delete/'.$p->id); ?>
+                         <?= form_open('/pendidikan/delete/'.$p->id); ?>
                          <?= csrf_field(); ?>
                          <?= form_hidden('_method', 'DELETE'); ?>
                          <button type="submit" class="btn btn-danger btn-sm"><i class="material-icons">delete_forever</i></button>
@@ -63,27 +63,27 @@
 
 <!-- Modal Tambah Pekerjaan -->
 <?php 
-$pekerjaan = [
-   'name' => 'pekerjaan',
+$pendidikan = [
+   'name' => 'pendidikan',
    'class' => 'form-control',
-   'id' => 'pekerjaan'
+   'id' => 'pendidikan'
 ];
 ?>
-<div class="modal fade" id="formModalTambahPekerjaan" tabindex="-1" aria-labelledby="formModalLabelPekerjaan" aria-hidden="true">
+<div class="modal fade" id="formModalTambahPendidikan" tabindex="-1" aria-labelledby="formModalLabelPendidikan" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="formModalLabelPekerjaan">Tambah Data Pekerjaan</h5>
+        <h5 class="modal-title" id="formModalLabelPendidikan">Tambah Data Pendidikan</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <?= form_open('/pekerjaan/create'); ?>
+        <?= form_open('/pendidikan/create'); ?>
         <div class="form-group">
            <input type="hidden" name="id" id="id">
-           <?= form_label('Pekerjaan', 'pekerjaan'); ?>
-           <?= form_input($pekerjaan); ?>
+           <?= form_label('pendidikan', 'pendidikan'); ?>
+           <?= form_input($pendidikan); ?>
         </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Controllers;
-use \App\Models\PekerjaanModel;
 
-class Pekerjaan extends BaseController
+use App\Controllers\BaseController;
+use \App\Models\UserModel;
+class User extends BaseController
 {
    public function __construct()
    {
       helper('form');
       $this->session = session();
       $this->validation = \Config\Services::validation();
-      $this->pekerjaanModel = new \App\Models\PekerjaanModel();
+      $this->userModel = new \App\Models\UserModel();
    }
-   
+
 	public function index()
 	{
-      $page = 1;
+		$page = 1;
       $keyword = '';
       if($this->request->getGet()) {
          $page = $this->request->getGet('page');
@@ -23,15 +24,15 @@ class Pekerjaan extends BaseController
       $perPage = 2;
       $limit = $perPage;
       $offset = ($page - 1) * $perPage;
-      $total = $this->pekerjaanModel->countPekerjaan();
+      $total = $this->userModel->countUser();
       if($this->request->getPost('keyword')) {
          $keyword = $this->request->getPost('keyword');
       }
-      $pekerjaan = $this->pekerjaanModel->getAllPekerjaan($limit, $offset, $keyword);
-		return view('admin/pekerjaan/index', [
+      $user = $this->userModel->getAllUser($limit, $offset, $keyword);
+      return view('admin/user/index', [
          'title' => 'PPDB Online',
-         'subtitle' => 'Pekerjaan',
-         'pekerjaan' => $pekerjaan,
+         'subtitle' => 'user',
+         'user' => $user,
          'keyword' => $keyword,
          'total' => $total,
          'perPage' => $perPage,
@@ -42,26 +43,28 @@ class Pekerjaan extends BaseController
 
    public function getId()
    {
-      echo json_encode($this->pekerjaanModel->getPekerjaanID($_POST['id']));
+      echo json_encode($this->userModel->getUserID($_POST['id']));
    }
 
    public function create()
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'pekerjaan');
+         $this->validation->run($data, 'user');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $pekerjaanEntities = new \App\Entities\Pekerjaan();
-            $pekerjaanEntities->fill($data);
-            $this->pekerjaanModel->save($pekerjaanEntities);
+            $userEntities = new \App\Entities\User();
+            $userEntities->fill($data);
+            $userEntities->setPassword($this->request->getPost('password'));
+            $userEntities->foto = $this->request->getFile('foto');
+            $this->userModel->save($userEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Menambahkan Data.');
-            return redirect()->to('/pekerjaan');
+            return redirect()->to('/user');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/pekerjaan');
+         return redirect()->to('/user');
       }
    }
 
@@ -69,27 +72,35 @@ class Pekerjaan extends BaseController
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'pekerjaan');
+         $this->validation->run($data, 'agama');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $pekerjaanEntities = new \App\Entities\Pekerjaan();
-            $pekerjaanEntities->fill($data);
-            $this->pekerjaanModel->save($pekerjaanEntities);
+            $agamaEntities = new \App\Entities\Agama();
+            $agamaEntities->fill($data);
+            if($this->request->getFile('foto')->isValid()) {
+               $user->foto = $this->request->getFile('foto');
+               unlink('./img/user/'.$this->request->getPost('fotoLama'));
+            }
+            $this->agamaModel->save($agamaEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Edit Data.');
-            return redirect()->to('/pekerjaan');
+            return redirect()->to('/agama');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/pekerjaan');
+         return redirect()->to('/agama');
       }
    }
 
    public function delete()
    {
       $id = $this->request->uri->getSegment(3);
-      $this->pekerjaanModel->delete($id);
+      $user = $this->userModel->find($id);
+      if($user->foto) {
+         unlink('./img/user/'.$user->foto);
+      }
+      $this->userModel->delete($id);
       $this->session->setFlashdata('success', 'Berhasil Hapus Data Pekerjaan.');
-      return redirect()->to('/pekerjaan');
+      return redirect()->to('/user');
    }
 }

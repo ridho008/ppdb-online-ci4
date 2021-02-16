@@ -46,7 +46,11 @@ class Filters extends BaseConfig
 			'auth' => ['except' => 
 				[
 					'admin', 'admin/*',
-					'pekerjaan', 'pekerjaan/*'
+					'pekerjaan', 'pekerjaan/*',
+					'pendidikan', 'pendidikan/*',
+					'agama', 'agama/*',
+					'user', 'user/*',
+					'penghasilan', 'penghasilan/*',
 				]
 			],
 		],

@@ -1,21 +1,22 @@
 <?php
 
 namespace App\Controllers;
-use \App\Models\PekerjaanModel;
 
-class Pekerjaan extends BaseController
+use App\Controllers\BaseController;
+use \App\Models\AgamaModel;
+class Agama extends BaseController
 {
    public function __construct()
    {
       helper('form');
       $this->session = session();
       $this->validation = \Config\Services::validation();
-      $this->pekerjaanModel = new \App\Models\PekerjaanModel();
+      $this->agamaModel = new \App\Models\AgamaModel();
    }
-   
+
 	public function index()
 	{
-      $page = 1;
+		$page = 1;
       $keyword = '';
       if($this->request->getGet()) {
          $page = $this->request->getGet('page');
@@ -23,15 +24,15 @@ class Pekerjaan extends BaseController
       $perPage = 2;
       $limit = $perPage;
       $offset = ($page - 1) * $perPage;
-      $total = $this->pekerjaanModel->countPekerjaan();
+      $total = $this->agamaModel->countAgama();
       if($this->request->getPost('keyword')) {
          $keyword = $this->request->getPost('keyword');
       }
-      $pekerjaan = $this->pekerjaanModel->getAllPekerjaan($limit, $offset, $keyword);
-		return view('admin/pekerjaan/index', [
+      $agama = $this->agamaModel->getAllAgama($limit, $offset, $keyword);
+      return view('admin/agama/index', [
          'title' => 'PPDB Online',
-         'subtitle' => 'Pekerjaan',
-         'pekerjaan' => $pekerjaan,
+         'subtitle' => 'Agama',
+         'agama' => $agama,
          'keyword' => $keyword,
          'total' => $total,
          'perPage' => $perPage,
@@ -42,26 +43,26 @@ class Pekerjaan extends BaseController
 
    public function getId()
    {
-      echo json_encode($this->pekerjaanModel->getPekerjaanID($_POST['id']));
+      echo json_encode($this->agamaModel->getAgamaID($_POST['id']));
    }
 
    public function create()
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'pekerjaan');
+         $this->validation->run($data, 'agama');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $pekerjaanEntities = new \App\Entities\Pekerjaan();
-            $pekerjaanEntities->fill($data);
-            $this->pekerjaanModel->save($pekerjaanEntities);
+            $agamaEntities = new \App\Entities\Agama();
+            $agamaEntities->fill($data);
+            $this->agamaModel->save($agamaEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Menambahkan Data.');
-            return redirect()->to('/pekerjaan');
+            return redirect()->to('/agama');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/pekerjaan');
+         return redirect()->to('/agama');
       }
    }
 
@@ -69,27 +70,27 @@ class Pekerjaan extends BaseController
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'pekerjaan');
+         $this->validation->run($data, 'agama');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $pekerjaanEntities = new \App\Entities\Pekerjaan();
-            $pekerjaanEntities->fill($data);
-            $this->pekerjaanModel->save($pekerjaanEntities);
+            $agamaEntities = new \App\Entities\Agama();
+            $agamaEntities->fill($data);
+            $this->agamaModel->save($agamaEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Edit Data.');
-            return redirect()->to('/pekerjaan');
+            return redirect()->to('/agama');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/pekerjaan');
+         return redirect()->to('/agama');
       }
    }
 
    public function delete()
    {
       $id = $this->request->uri->getSegment(3);
-      $this->pekerjaanModel->delete($id);
+      $this->agamaModel->delete($id);
       $this->session->setFlashdata('success', 'Berhasil Hapus Data Pekerjaan.');
-      return redirect()->to('/pekerjaan');
+      return redirect()->to('/agama');
    }
 }

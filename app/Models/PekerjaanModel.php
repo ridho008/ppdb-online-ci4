@@ -17,4 +17,17 @@ class PekerjaanModel extends Model
                       ->where('id', $id)
                       ->get()->getRowArray();
    }
+
+   public function countPekerjaan()
+   {
+      return $this->db->table('pekerjaan')
+                      ->countAllResults();
+   }
+
+   public function getAllPekerjaan($limit, $offset, $keyword)
+   {
+      return $this->db->table('pekerjaan')
+                      ->like('pekerjaan', $keyword)
+                      ->get($limit, $offset)->getResult();
+   }
 }
