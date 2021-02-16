@@ -1,8 +1,14 @@
+<?php 
+$db = \Config\Database::connect();
+$setting = $db->table('pengaturan')
+              ->where('id', 1)
+              ->get()->getRow();
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="/">
-        <img src="/img/logo-ppdb.jpg" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
-        PPDB Online
+        <img src="/img/<?= $setting->logo ?>" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
+        <?= $setting->nama_sekolah ?>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -16,14 +22,31 @@
             <a class="nav-link" href="#">Pengumuman</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#">Pendaftaran</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">Kontak</a>
           </li>
         </ul>
         <div class="form-inline">
           <ul class="navbar-nav">
-            <li class="nav-item">
+            <?php if(session()->get('id')) : ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Hello, <?= session()->get('username') ?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/admin">Dashboard</a>
+                  <a class="dropdown-item" href="/pengaturan">Pengaturan</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/auth/logout">Log out</a>
+                </div>
+              </li>
+            <?php else : ?>
+              <li class="nav-item">
               <a class="nav-link" href="/auth" tabindex="-1" aria-disabled="true">Masuk/Daftar</a>
             </li>
+            <?php endif; ?>
           </ul>
           </div>
       </div>

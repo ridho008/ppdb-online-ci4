@@ -4,6 +4,11 @@
 $session = session();
 $errors = $session->getFlashdata('errors');
 $success = $session->getFlashdata('success');
+
+$db = \Config\Database::connect();
+$setting = $db->table('pengaturan')
+              ->where('id', 1)
+              ->get()->getRow();
 ?>
 <head>
   <meta charset="utf-8" />
@@ -32,7 +37,7 @@ $success = $session->getFlashdata('success');
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo"><a href="/admin" class="simple-text logo-normal">
-        <img src="/img/logo-ppdb.jpg" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
+        <img src="/img/<?= $setting->logo; ?>" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
           PPDB Online
         </a></div>
       <div class="sidebar-wrapper">
@@ -73,6 +78,12 @@ $success = $session->getFlashdata('success');
               <p>Penghasilan</p>
             </a>
           </li>
+          <li class="nav-item<?= (uri_string() == 'pengaturan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/pengaturan">
+              <i class="material-icons">settings</i>
+              <p>Pengaturan</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -95,6 +106,8 @@ $success = $session->getFlashdata('success');
                 echo "Penghasilan";
               } else if(uri_string() == 'user') {
                 echo "User";
+              } else if(uri_string() == 'pengaturan') {
+                echo "Pengaturan";
               }
 
               ?>
@@ -312,6 +325,21 @@ $success = $session->getFlashdata('success');
           $(this).remove();
       });
   }, 5000);
+
+    // ganti gambar
+    // function viewImg(input) {
+    //   if(input.files && input.files[0]) {
+    //     var reader = new FileReader();
+    //     reader.onload = function(e) {
+    //       $('#gambar_load').attr('src', e.target.result);
+    //     }
+    //     reader.readAsDataURL(input.files[0]);
+    //   }
+    // }
+    // $('#preview_gambar').change(function()  {
+    //     viewImg(this);
+    //   });
+    
     $(document).ready(function() {
       $().ready(function() {
         $sidebar = $('.sidebar');

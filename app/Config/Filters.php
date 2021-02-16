@@ -45,7 +45,9 @@ class Filters extends BaseConfig
 			// 'honeypot',
 			'auth' => ['except' => 
 				[
+					'/',
 					'admin', 'admin/*',
+					'admin', 'pengaturan',
 					'pekerjaan', 'pekerjaan/*',
 					'pendidikan', 'pendidikan/*',
 					'agama', 'agama/*',
