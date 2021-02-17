@@ -1,3 +1,9 @@
+<?php 
+$db = \Config\Database::connect();
+$ta = $db->table('tahun_ajaran')
+              ->where('status', 1)
+              ->get()->getRow();
+?>
 <?= $this->extend('layouts/app-front'); ?>
 <?= $this->section('layouts/navbarFront'); ?>
 
@@ -31,6 +37,13 @@
 			<div class="card">
 			    <div class="card-header card-header-primary">
 			      <h4 class="card-title ">Daftar Pendaftaran</h4>
+			      <?php if($ta->status != 1) : ?>
+			      <h6 class="card-title"><strong>Pendaftaran Ditutup</strong></h6>
+			      <?php elseif($ta->status == 0): ?>
+			      <h6 class="card-title">Sedang Maintence</h6>
+			      <?php else: ?>
+			      <h6 class="card-title">Tahun Ajaran <?= $ta->ta ?></h6>
+			   	<?php endif; ?>
 			    </div>
 			    <div class="card-body">
 			    	<ul class="list-group list-group-flush">
@@ -59,9 +72,6 @@
 			    	  	</div>
 			    	  </li>
 			    	</ul>
-			      
-			      
-			      
 			      <a href="" class="btn btn-primary btn-block">Daftar Sekarang</a>
 			    </div>
 			</div>

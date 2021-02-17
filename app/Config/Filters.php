@@ -53,6 +53,7 @@ class Filters extends BaseConfig
 					'agama', 'agama/*',
 					'user', 'user/*',
 					'penghasilan', 'penghasilan/*',
+					'tahunAjaran', 'tahunAjaran/*',
 				]
 			],
 		],

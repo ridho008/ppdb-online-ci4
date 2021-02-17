@@ -78,6 +78,12 @@ $setting = $db->table('pengaturan')
               <p>Penghasilan</p>
             </a>
           </li>
+          <li class="nav-item<?= (uri_string() == 'tahunAjaran') ? ' active' : '' ?>">
+            <a class="nav-link" href="/tahunAjaran">
+              <i class="material-icons">attach_money</i>
+              <p>Tahun Ajaran</p>
+            </a>
+          </li>
           <li class="nav-item<?= (uri_string() == 'pengaturan') ? ' active' : '' ?>">
             <a class="nav-link" href="/pengaturan">
               <i class="material-icons">settings</i>

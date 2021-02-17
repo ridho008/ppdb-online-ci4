@@ -129,4 +129,22 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $tahun = [
+		'tahun' => [
+			'rules' => 'required'
+		],
+		'ta' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $tahun_errors = [
+		'tahun' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'ta' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }

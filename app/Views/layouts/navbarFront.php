@@ -3,6 +3,7 @@ $db = \Config\Database::connect();
 $setting = $db->table('pengaturan')
               ->where('id', 1)
               ->get()->getRow();
+
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">

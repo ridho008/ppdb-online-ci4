@@ -120,4 +120,35 @@ $(function() {
       });
    });
 
+   // TAHUN AJARAN
+   $('#formTahunTambah').click(function() {
+      $('#formModalLabelTahun').html('Tambah Data Tahun');
+      $('.modal-body form').attr('action', '/tahunAjaran/create');
+      $('.modal-footer button[type=submit]').html('Simpan');
+      $('#tahun').val('');
+      $('#ta').val('');
+   });
+
+   $('.formTahunEdit').click(function() {
+      $('#formModalLabelTahun').html('Edit Data Tahun');
+      $('.modal-body form').attr('action', '/tahunAjaran/edit');
+      $('.modal-footer button[type=submit]').html('Edit');
+
+      var id = $(this).data("id");
+      // console.log(id);
+
+      $.ajax({
+         url : 'http://localhost:8080/tahunAjaran/getId',
+         method : 'post',
+         dataType : 'json',
+         data : {id: id},
+         success: function(data) {
+            console.log(data);
+            $('#id').val(data.id);
+            $('#tahun').val(data.tahun);
+            $('#ta').val(data.ta);
+         }
+      });
+   });
+
 });
