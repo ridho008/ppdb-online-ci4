@@ -151,4 +151,33 @@ $(function() {
       });
    });
 
+   // JURUSAN
+   $('#formJurusanTambah').click(function() {
+      $('#formModalLabelJurusan').html('Tambah Data Jurusan');
+      $('.modal-body form').attr('action', '/jurusan/create');
+      $('.modal-footer button[type=submit]').html('Simpan');
+      $('#jurusan').val('');
+   });
+
+   $('.formJurusanEdit').click(function() {
+      $('#formModalLabelJurusan').html('Edit Data Jurusan');
+      $('.modal-body form').attr('action', '/jurusan/edit');
+      $('.modal-footer button[type=submit]').html('Edit');
+
+      var id = $(this).data("id");
+      // console.log(id);
+
+      $.ajax({
+         url : 'http://localhost:8080/jurusan/getId',
+         method : 'post',
+         dataType : 'json',
+         data : {id: id},
+         success: function(data) {
+            console.log(data);
+            $('#id').val(data.id);
+            $('#jurusan').val(data.jurusan);
+         }
+      });
+   });
+
 });

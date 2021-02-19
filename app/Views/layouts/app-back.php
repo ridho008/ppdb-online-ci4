@@ -80,8 +80,14 @@ $setting = $db->table('pengaturan')
           </li>
           <li class="nav-item<?= (uri_string() == 'tahunAjaran') ? ' active' : '' ?>">
             <a class="nav-link" href="/tahunAjaran">
-              <i class="material-icons">attach_money</i>
+              <i class="material-icons">calendar_today</i>
               <p>Tahun Ajaran</p>
+            </a>
+          </li>
+          <li class="nav-item<?= (uri_string() == 'jurusan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/jurusan">
+              <i class="material-icons">card_membership</i>
+              <p>Jurusan</p>
             </a>
           </li>
           <li class="nav-item<?= (uri_string() == 'pengaturan') ? ' active' : '' ?>">
@@ -114,6 +120,10 @@ $setting = $db->table('pengaturan')
                 echo "User";
               } else if(uri_string() == 'pengaturan') {
                 echo "Pengaturan";
+              } else if(uri_string() == 'jurusan') {
+                echo "Jurusan";
+              } else if(uri_string() == 'tahunAjaran') {
+                echo "Tahun Ajaran";
               }
 
               ?>

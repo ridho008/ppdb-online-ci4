@@ -2,7 +2,12 @@
 $db = \Config\Database::connect();
 $ta = $db->table('tahun_ajaran')
               ->where('status', 1)
-              ->get()->getRow();
+              ->get()->getRowArray();
+
+// $tahunNon = $db->table('tahun_ajaran')
+//               ->where('status', 0)
+//               ->get()->getResult();
+
 ?>
 <?= $this->extend('layouts/app-front'); ?>
 <?= $this->section('layouts/navbarFront'); ?>
@@ -37,13 +42,12 @@ $ta = $db->table('tahun_ajaran')
 			<div class="card">
 			    <div class="card-header card-header-primary">
 			      <h4 class="card-title ">Daftar Pendaftaran</h4>
-			      <?php if($ta->status != 1) : ?>
+			      <?php if($ta['status'] <> 1) { ?>
 			      <h6 class="card-title"><strong>Pendaftaran Ditutup</strong></h6>
-			      <?php elseif($ta->status == 0): ?>
-			      <h6 class="card-title">Sedang Maintence</h6>
-			      <?php else: ?>
-			      <h6 class="card-title">Tahun Ajaran <?= $ta->ta ?></h6>
-			   	<?php endif; ?>
+			      <?php } else { ?>
+			      <h6 class="card-title">Tahun Ajaran <?= $ta['ta'] ?></h6>
+			   	<?php } ?>
+
 			    </div>
 			    <div class="card-body">
 			    	<ul class="list-group list-group-flush">

@@ -11,4 +11,10 @@ class AuthModel extends Model
                       ->where('username', $username)
                       ->get()->getRowArray();
    }
+
+   public function getSiswa($nisn, $password) {
+      return $this->db->table('siswa')
+                      ->where('nisn', $nisn)
+                      ->get()->getRowArray();
+   }
 }

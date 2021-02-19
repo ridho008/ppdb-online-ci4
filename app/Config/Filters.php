@@ -20,6 +20,8 @@ class Filters extends BaseConfig
 		'toolbar'  => DebugToolbar::class,
 		'honeypot' => Honeypot::class,
 		'auth' => \App\Filters\AuthFilter::class,
+		'admin' => \App\Filters\AdminFilter::class,
+		'siswa' => \App\Filters\SiswaFilter::class,
 	];
 
 	/**
@@ -32,30 +34,19 @@ class Filters extends BaseConfig
 		'before' => [
 			// 'honeypot',
 			// 'csrf',
-			'auth' => ['except' => 
-					[
-					'auth', 'auth/*',
-					'home', 'home/*',
-					'/',
-					]
-			],
+			// 'admin' => ['except' => 
+			// 		[
+			// 		'auth', 'auth/*',
+			// 		'home', 'home/*',
+			// 		'pendaftaran', 'pendaftaran/*',
+			// 		'/',
+			// 		]
+			// ],
 		],
 		'after'  => [
 			'toolbar',
 			// 'honeypot',
-			'auth' => ['except' => 
-				[
-					'/',
-					'admin', 'admin/*',
-					'admin', 'pengaturan',
-					'pekerjaan', 'pekerjaan/*',
-					'pendidikan', 'pendidikan/*',
-					'agama', 'agama/*',
-					'user', 'user/*',
-					'penghasilan', 'penghasilan/*',
-					'tahunAjaran', 'tahunAjaran/*',
-				]
-			],
+			
 		],
 	];
 
@@ -79,5 +70,50 @@ class Filters extends BaseConfig
 	 *
 	 * @var array
 	 */
-	public $filters = [];
+	public $filters = [
+		'siswa' => [
+			'before' => [
+				'home', 'home/*',
+			],
+			'after' => [
+				'home','home/*',
+				'admin', 'admin/*',
+				'pekerjaan', 'pekerjaan/*',
+				'pendidikan', 'pendidikan/*',
+				'agama', 'agama/*',
+				'user', 'user/*',
+				'penghasilan', 'penghasilan/*',
+				'tahunAjaran', 'tahunAjaran/*',
+				'jurusan', 'jurusan/*',
+				'pendaftaran', 'pendaftaran/*',
+			],
+		],
+
+		'admin' => [
+			'before' => [
+				'home', 'home/*',
+			],
+			'after' => [
+				'home','home/*',
+				'auth', 'auth/logout',
+				'auth', 'auth/loginSiswa',
+				'auth', 'index',
+			],
+		],
+	];
 }
+
+// 'auth' => ['except' => 
+// 				[
+// 					'/',
+// 					'admin', 'admin/*',
+// 					'admin', 'pengaturan',
+// 					'pekerjaan', 'pekerjaan/*',
+// 					'pendidikan', 'pendidikan/*',
+// 					'agama', 'agama/*',
+// 					'user', 'user/*',
+// 					'penghasilan', 'penghasilan/*',
+// 					'tahunAjaran', 'tahunAjaran/*',
+// 					'jurusan', 'jurusan/*',
+// 				]
+// 			],

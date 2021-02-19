@@ -22,8 +22,8 @@ $setting = $db->table('pengaturan')
           <li class="nav-item">
             <a class="nav-link" href="#">Pengumuman</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pendaftaran</a>
+          <li class="nav-item<?= (uri_string() == 'pendaftaran') ? ' active' : '' ?>">
+            <a class="nav-link" href="/pendaftaran">Pendaftaran</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Kontak</a>
@@ -31,7 +31,7 @@ $setting = $db->table('pengaturan')
         </ul>
         <div class="form-inline">
           <ul class="navbar-nav">
-            <?php if(session()->get('id')) : ?>
+            <?php if(!empty(session()->get('username'))) : ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Hello, <?= session()->get('username') ?>
@@ -44,9 +44,25 @@ $setting = $db->table('pengaturan')
                 </div>
               </li>
             <?php else : ?>
+              <?php if(!session()->get('nisn')) : ?>
               <li class="nav-item">
               <a class="nav-link" href="/auth" tabindex="-1" aria-disabled="true">Masuk/Daftar</a>
             </li>
+            <?php endif; ?>
+            <?php endif; ?>
+
+            <?php if(session()->get('nisn')) : ?>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Hello, <?= session()->get('nisn') ?>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/Siswa">Halaman Utama</a>
+                  <a class="dropdown-item" href="/pengaturan">Pengaturan</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/auth/logoutSiswa">Log out</a>
+                </div>
+              </li>
             <?php endif; ?>
           </ul>
           </div>

@@ -21,6 +21,27 @@
 
    <!-- Content Front -->
    <div class="content">
+      <?php 
+      $session = session();
+      $error = $session->getFlashdata('error');
+      $success = $session->getFlashdata('success');
+      ?>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <?php if($error != null) : ?>
+              <div class="alert alert-danger" role=alert>
+                 <h4><?= $error; ?></h4>
+              </div>
+            <?php endif; ?>
+            <?php if($success != null) : ?>
+              <div class="alert alert-success" role=alert>
+                 <h4><?= $success; ?></h4>
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
       <?= $this->renderSection('content'); ?>
    </div>
    <!-- /Content Front -->
@@ -40,5 +61,12 @@
   <script src="/js/bootstrap.min.js"></script>
   <script src="/assets/js/core/bootstrap-material-design.min.js"></script>
   <script src="/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script>
+      window.setTimeout(function() {
+        $(".alert").slideUp(500, function() {
+            $(this).remove();
+        });
+      }, 5000);
+  </script>
 </body>
 </html>

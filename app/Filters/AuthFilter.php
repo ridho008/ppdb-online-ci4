@@ -10,15 +10,15 @@ class AuthFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get('logged_in') != true) {
-         return redirect()->to('/auth');
-        }
+        // if(session()->get('logged_in') != true) {
+        //  return redirect()->to('/');
+        // }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        if(session()->get('logged_in') == true) {
-         return redirect()->to('/admin');
-        }
+        // if(session()->get('logged_in') == true) {
+        //  return redirect()->to('/admin');
+        // }
     }
 }

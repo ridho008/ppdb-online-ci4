@@ -147,4 +147,16 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $jurusan = [
+		'jurusan' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $jurusan_errors = [
+		'jurusan' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }
