@@ -180,4 +180,35 @@ $(function() {
       });
    });
 
+   // Banner
+   $('#formBannerTambah').click(function() {
+      $('#formModalLabelBanner').html('Tambah Data Banner');
+      $('.modal-body form').attr('action', '/banner/create');
+      $('.modal-footer button[type=submit]').html('Simpan');
+      $('#banner').val('');
+   });
+
+   $('.formBannerEdit').click(function() {
+      $('#formModalLabelBanner').html('Edit Data Banner');
+      $('.modal-body form').attr('action', '/banner/edit');
+      $('.modal-footer button[type=submit]').html('Edit');
+
+      var id = $(this).data("id");
+      // console.log(id);
+
+      $.ajax({
+         url : 'http://localhost:8080/banner/getId',
+         method : 'post',
+         dataType : 'json',
+         data : {id: id},
+         success: function(data) {
+            console.log(data);
+            $('#id').val(data.id);
+            $('#ket').val(data.ket);
+            $('#tampilBanner').attr('src', 'http://localhost:8080/img/' + data.banner);
+            $('#bannerLama').val(data.banner);
+         }
+      });
+   });
+
 });

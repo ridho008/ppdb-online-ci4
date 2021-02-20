@@ -90,12 +90,24 @@ $setting = $db->table('pengaturan')
               <p>Jurusan</p>
             </a>
           </li>
-          <li class="nav-item<?= (uri_string() == 'pengaturan') ? ' active' : '' ?>">
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">settings</i>
+                Pengaturan
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/banner"><i class="material-icons">image</i> Banner</a>
+                <a class="dropdown-item" href="/pengaturan"><i class="material-icons">website</i> Website</a>
+                <a class="dropdown-item" href="/tahunAjaran"><i class="material-icons">calendar_today</i> Tahun Ajaran</a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
+          <!-- <li class="nav-item<?= (uri_string() == 'pengaturan') ? ' active' : '' ?>">
             <a class="nav-link" href="/pengaturan">
               <i class="material-icons">settings</i>
               <p>Pengaturan</p>
             </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -124,6 +136,8 @@ $setting = $db->table('pengaturan')
                 echo "Jurusan";
               } else if(uri_string() == 'tahunAjaran') {
                 echo "Tahun Ajaran";
+              } else if(uri_string() == 'banner') {
+                echo "Banner";
               }
 
               ?>

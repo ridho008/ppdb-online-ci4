@@ -159,4 +159,22 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $banner = [
+		'ket' => [
+			'rules' => 'required'
+		],
+		'banner' => [
+			'rules' => 'uploaded[banner]|max_size[banner,1024]|mime_in[banner,image/png,image/jpg,image/jpeg]'
+		],
+	];
+
+	public $banner_errors = [
+		'ket' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'banner' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }

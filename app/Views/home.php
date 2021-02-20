@@ -18,15 +18,16 @@ $ta = $db->table('tahun_ajaran')
 		<div class="col-md-8">
 			<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <img src="/img/slide1.png" class="d-block w-100" alt="..." height="450px">
+			  	<?php 
+			  	$arrActice = [1,2,3];
+			  	var_dump($arrActice[0]);
+			  	?>
+			  	<?php foreach($banner as $key => $ban) : ?>
+			  		<?= var_dump($key); ?>
+			    <div class="carousel-item <?= ($key == 0) ? 'active' : '' ?>">
+			      <img src="/img/<?= $ban->banner; ?>" class="d-block w-100" alt="..." height="450px">
 			    </div>
-			    <div class="carousel-item">
-			      <img src="/img/slide2.jpg" class="d-block w-100" alt="..." height="450px">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="/img/slide3.jpg" class="d-block w-100" alt="..." height="450px">
-			    </div>
+			 <?php endforeach; ?>
 			  </div>
 			  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
