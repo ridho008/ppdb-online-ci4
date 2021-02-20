@@ -58,7 +58,7 @@ $setting = $db->table('pengaturan')
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/Siswa">Halaman Utama</a>
-                  <a class="dropdown-item" href="/pengaturan">Pengaturan</a>
+                  <a class="dropdown-item" href="/pengaturan">Biodata</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/auth/logoutSiswa">Log out</a>
                 </div>

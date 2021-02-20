@@ -50,12 +50,14 @@ class Pendaftaran extends BaseController
         $tahun = $this->request->getPost('tahun');
         $tbt = date("$tahun-$bulan-$tanggal");
         // dd($tbt);
+        $kodePendaftaran = date('Ymd') . mt_rand(111,999);
         $this->siswaModel->save([
             'nisn' => $this->request->getPost('nisn'),
             'nama' => $this->request->getPost('nama'),
             'password' => $this->request->getPost('nisn'),
             'tmp_lahir' => $this->request->getPost('tmp_lahir'),
-            'tgl_lahir' => $tbt
+            'tgl_lahir' => $tbt,
+            'no_pendaftaran' => $kodePendaftaran
         ]);
 
         $this->session->setFlashdata('success', 'Akun Siswa Berhasil Dibuat.');

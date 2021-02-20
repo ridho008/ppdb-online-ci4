@@ -8,26 +8,15 @@ class SiswaModel extends Model
 {
    protected $table = 'siswa';
    protected $primaryKey = 'id';
-   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir'];
+   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir', 'no_pendaftaran'];
    protected $returnType = 'App\Entities\Siswa';
 
-   public function getAgamaID($id)
+   public function noPendaftaran()
    {
-      return $this->db->table('agama')
-                      ->where('id', $id)
-                      ->get()->getRowArray();
-   }
-
-   public function countAgama()
-   {
-      return $this->db->table('agama')
-                      ->countAllResults();
-   }
-
-   public function getAllAgama($limit, $offset, $keyword)
-   {
-      return $this->db->table('agama')
-                      ->like('agama', $keyword)
-                      ->get($limit, $offset)->getResult();
+    $this->db->table('siswa')
+             ->select('RIGHT(no_pendaftaran,3) AS no_pendaftaran', false)
+             ->orderBy('no_pendaftaran', 'desc')
+             ->limit(1)
+             ->get()->getRow();
    }
 }

@@ -76,7 +76,7 @@ $ta = $db->table('tahun_ajaran')
 			    	  	</div>
 			    	  </li>
 			    	</ul>
-			      <a href="" class="btn btn-primary btn-block">Daftar Sekarang</a>
+			      <a href="/pendaftaran" class="btn btn-primary btn-block">Daftar Sekarang</a>
 			    </div>
 			</div>
 		</div>
