@@ -90,6 +90,12 @@ $setting = $db->table('pengaturan')
               <p>Jurusan</p>
             </a>
           </li>
+          <li class="nav-item<?= (uri_string() == 'jalurMasuk') ? ' active' : '' ?>">
+            <a class="nav-link" href="/jalurMasuk">
+              <i class="material-icons">calendar_view_day</i>
+              <p>Jalur Masuk</p>
+            </a>
+          </li>
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">settings</i>
@@ -138,6 +144,8 @@ $setting = $db->table('pengaturan')
                 echo "Tahun Ajaran";
               } else if(uri_string() == 'banner') {
                 echo "Banner";
+              } else if(uri_string() == 'jalurMasuk') {
+                echo "Jalur Masuk";
               }
 
               ?>

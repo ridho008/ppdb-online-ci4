@@ -3,20 +3,20 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use \App\Models\BannerModel;
-class Banner extends BaseController
+use \App\Models\JalurMasukModel;
+class JalurMasuk extends BaseController
 {
    public function __construct()
    {
       helper('form');
       $this->session = session();
       $this->validation = \Config\Services::validation();
-      $this->bannerModel = new \App\Models\BannerModel();
+      $this->jalurModel = new \App\Models\JalurMasukModel();
    }
 
 	public function index()
 	{
-      $page = 1;
+		$page = 1;
       $keyword = '';
       if($this->request->getGet()) {
          $page = $this->request->getGet('page');
@@ -24,15 +24,15 @@ class Banner extends BaseController
       $perPage = 2;
       $limit = $perPage;
       $offset = ($page - 1) * $perPage;
-      $total = $this->bannerModel->countBanner();
+      $total = $this->jalurModel->countJalur();
       if($this->request->getPost('keyword')) {
          $keyword = $this->request->getPost('keyword');
       }
-      $banner = $this->bannerModel->getAllBanner($limit, $offset, $keyword);
-      return view('admin/banner/index', [
+      $jalur = $this->jalurModel->getAllJalur($limit, $offset, $keyword);
+      return view('admin/jalur/index', [
          'title' => 'PPDB Online',
-         'subtitle' => 'Banner',
-         'banner' => $banner,
+         'subtitle' => 'Jalur Masuk',
+         'jalur' => $jalur,
          'keyword' => $keyword,
          'total' => $total,
          'perPage' => $perPage,
@@ -43,27 +43,26 @@ class Banner extends BaseController
 
    public function getId()
    {
-      echo json_encode($this->bannerModel->getBannerID($_POST['id']));
+      echo json_encode($this->jalurModel->getJalurID($_POST['id']));
    }
 
    public function create()
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'banner');
+         $this->validation->run($data, 'jalur');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $bannerEntities = new \App\Entities\Banner();
-            $bannerEntities->fill($data);
-            $bannerEntities->banner = $this->request->getFile('banner');
-            $this->bannerModel->save($bannerEntities);
+            $jalurEntities = new \App\Entities\JalurMasuk();
+            $jalurEntities->fill($data);
+            $this->jalurModel->save($jalurEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Menambahkan Data.');
-            return redirect()->to('/banner');
+            return redirect()->to('/jalurMasuk');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/banner');
+         return redirect()->to('/jalurMasuk');
       }
    }
 
@@ -71,30 +70,27 @@ class Banner extends BaseController
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'banner');
+         $this->validation->run($data, 'jalur');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $bannerEntities = new \App\Entities\Banner();
-            $bannerEntities->fill($data);
-            if($this->request->getFile('banner')->isValid()) {
-               $bannerEntities->banner = $this->request->getFile('banner');
-            }
-            $this->bannerModel->save($bannerEntities);
+            $jalurEntities = new \App\Entities\JalurMasuk();
+            $jalurEntities->fill($data);
+            $this->jalurModel->save($jalurEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Edit Data.');
-            return redirect()->to('/banner');
+            return redirect()->to('/jalurMasuk');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/banner');
+         return redirect()->to('/jalurMasuk');
       }
    }
 
    public function delete()
    {
       $id = $this->request->uri->getSegment(3);
-      $this->bannerModel->delete($id);
+      $this->jalurModel->delete($id);
       $this->session->setFlashdata('success', 'Berhasil Hapus Data Pekerjaan.');
-      return redirect()->to('/banner');
+      return redirect()->to('/jalurMasuk');
    }
 }

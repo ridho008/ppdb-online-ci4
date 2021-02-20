@@ -3,8 +3,8 @@
 <?= $this->section('content'); ?>
 <div class="row">
    <div class="col-md-3">
-      <button type="button" class="btn btn-primary" id="formBannerTambah" data-toggle="modal" data-target="#formModalTambahBanner">
-        Tambah Banner
+      <button type="button" class="btn btn-primary" id="formJalurTambah" data-toggle="modal" data-target="#formModalTambahJalur">
+        Tambah Jalur Masuk
       </button>
    </div>
    <div class="col-md-3">
@@ -23,7 +23,7 @@
    <div class="col-md-12">
       <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title ">Data Banner</h4>
+            <h4 class="card-title ">Data Jalur Masuk</h4>
           </div>
           <div class="card-body">
             <div class="table-responsive">
@@ -31,24 +31,22 @@
                 <thead class="text-primary">
                    <tr>
                       <th>No</th>
-                      <th>Keterangan</th>
-                      <th>Banner</th>
+                      <th>Jalur Masuk</th>
+                      <th>Kouta</th>
                       <th><i class="material-icons">settings</i></th>
                    </tr>
                 </thead>
                 <tbody>
-                  <?php $no = 1; foreach($banner as $key => $b) : ?>
+                  <?php $no = 1; foreach($jalur as $key => $p) : ?>
                   <tr>
                      <td><?= $offset + $key + 1; ?></td>
-                     <td><?= $b->ket; ?></td>
+                     <td><?= $p->jalur_masuk; ?></td>
+                     <td><?= $p->kouta; ?></td>
                      <td>
-                        <img src="/img/<?= $b->banner; ?>" width="100">
-                     </td>
-                     <td>
-                        <button type="button" class="btn btn-success btn-sm formBannerEdit" data-toggle="modal" data-target="#formModalTambahBanner" data-id="<?= $b->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formJalurEdit" data-toggle="modal" data-target="#formModalTambahJalur" data-id="<?= $p->id ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
-                         <?= form_open('/banner/delete/'.$b->id); ?>
+                         <?= form_open('/jalurMasuk/delete/'.$p->id); ?>
                          <?= csrf_field(); ?>
                          <?= form_hidden('_method', 'DELETE'); ?>
                          <button type="submit" class="btn btn-danger btn-sm"><i class="material-icons">delete_forever</i></button>
@@ -59,7 +57,7 @@
                 </tbody>
               </table>
             </div>
-            <?= \Config\Services::pager()->makeLinks($page, $perPage, $total, 'custom_pagination') ?>
+          <?= \Config\Services::pager()->makeLinks($page, $perPage, $total, 'custom_pagination') ?>
           </div>
       </div>
    </div>
@@ -67,38 +65,38 @@
 
 <!-- Modal Tambah Pekerjaan -->
 <?php 
-$ket = [
-   'name' => 'ket',
+$jalur_masuk = [
+   'name' => 'jalur_masuk',
    'class' => 'form-control',
-   'id' => 'ket'
+   'id' => 'jalur_masuk'
 ];
-$banner = [
-   'name' => 'banner',
-   'class' => 'form-control-file',
-   'id' => 'banner'
+
+$kouta = [
+   'name' => 'kouta',
+   'class' => 'form-control',
+   'id' => 'kouta',
+   'type' => 'number'
 ];
 ?>
-<div class="modal fade" id="formModalTambahBanner" tabindex="-1" aria-labelledby="formModalLabelBanner" aria-hidden="true">
+<div class="modal fade" id="formModalTambahJalur" tabindex="-1" aria-labelledby="formModalLabelJalur" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="formModalLabelBanner">Tambah Data Banner</h5>
+        <h5 class="modal-title" id="formModalLabelJalur">Tambah Data Jalur Masuk</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <?= form_open_multipart('/banner/create'); ?>
+        <?= form_open('/jalurMasuk/create'); ?>
+        <input type="hidden" name="id" id="id">
         <div class="form-group">
-           <input type="hidden" name="id" id="id">
-           <?= form_label('Keterangan', 'ket'); ?>
-           <?= form_input($ket); ?>
+           <?= form_label('Jalur Masuk', 'jalur_masuk'); ?>
+           <?= form_input($jalur_masuk); ?>
         </div>
         <div class="form-group">
-            <input type="hidden" name="bannerLama" id="bannerLama">
-           <?= form_label('Banner', 'banner'); ?><br>
-           <img src="" width="100" class="img-fluid" id="tampilBanner">
-           <?= form_upload($banner); ?>
+           <?= form_label('Kouta', 'kouta'); ?>
+           <?= form_input($kouta); ?>
         </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

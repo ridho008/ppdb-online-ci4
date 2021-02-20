@@ -211,4 +211,35 @@ $(function() {
       });
    });
 
+   // Jalur Masuk
+   $('#formJalurTambah').click(function() {
+      $('#formModalLabelJalur').html('Tambah Data Jalur Masuk');
+      $('.modal-body form').attr('action', '/jalurMasuk/create');
+      $('.modal-footer button[type=submit]').html('Simpan');
+      $('#jalur_masuk').val('');
+      $('#kouta').val('');
+   });
+
+   $('.formJalurEdit').click(function() {
+      $('#formModalLabelJalur').html('Edit Data Jalur Masuk');
+      $('.modal-body form').attr('action', '/jalurMasuk/edit');
+      $('.modal-footer button[type=submit]').html('Edit');
+
+      var id = $(this).data("id");
+      // console.log(id);
+
+      $.ajax({
+         url : 'http://localhost:8080/jalurMasuk/getId',
+         method : 'post',
+         dataType : 'json',
+         data : {id: id},
+         success: function(data) {
+            console.log(data);
+            $('#id').val(data.id);
+            $('#jalur_masuk').val(data.jalur_masuk);
+            $('#kouta').val(data.kouta);
+         }
+      });
+   });
+
 });

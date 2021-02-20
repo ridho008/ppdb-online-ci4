@@ -177,4 +177,22 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $jalur = [
+		'jalur_masuk' => [
+			'rules' => 'required'
+		],
+		'kouta' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $jalur_errors = [
+		'jalur_masuk' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'kouta' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }
