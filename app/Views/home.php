@@ -82,5 +82,16 @@ $ta = $db->table('tahun_ajaran')
 			</div>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">Beranda</div>
+				<div class="card-body">
+					<?= $beranda['beranda']; ?>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <?= $this->endSection(); ?>

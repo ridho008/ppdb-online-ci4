@@ -31,4 +31,6 @@ class AdminModel extends Model
                   ->where('id', 1)
                   ->update();
    }
+
+   
 }

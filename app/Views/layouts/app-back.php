@@ -14,6 +14,7 @@ $setting = $db->table('pengaturan')
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <?= $this->renderSection('head'); ?>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     <?= $title; ?> | <?= $subtitle; ?>
@@ -103,6 +104,7 @@ $setting = $db->table('pengaturan')
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/banner"><i class="material-icons">image</i> Banner</a>
+                <a class="dropdown-item" href="/beranda"><i class="material-icons">calendar_today</i> Beranda</a>
                 <a class="dropdown-item" href="/pengaturan"><i class="material-icons">website</i> Website</a>
                 <a class="dropdown-item" href="/tahunAjaran"><i class="material-icons">calendar_today</i> Tahun Ajaran</a>
                 <div class="dropdown-divider"></div>
@@ -146,6 +148,8 @@ $setting = $db->table('pengaturan')
                 echo "Banner";
               } else if(uri_string() == 'jalurMasuk') {
                 echo "Jalur Masuk";
+              } else if(uri_string() == 'beranda') {
+                echo "Beranda";
               }
 
               ?>
@@ -356,6 +360,7 @@ $setting = $db->table('pengaturan')
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="/assets/demo/demo.js"></script>
   <script src="/js/script.js"></script>
+  <?= $this->renderSection('script'); ?>
   <script>
     // hidden alert to success
     window.setTimeout(function() {

@@ -128,4 +128,34 @@ class Admin extends BaseController
       return redirect()->to('/pengaturan');
    }
 
+   public function beranda()
+   {
+      if($this->request->getPost()) {
+         if(!$this->validate([
+            'beranda' => [
+               'rules' => 'required',
+               'errors' => [
+                  'required' => '{field} wajib di isi.'
+               ]
+            ],
+         ])) {
+            return redirect()->to('/beranda')->withInput();
+         }
+
+         $data = [
+            'beranda' => $this->request->getPost('beranda'),
+         ];
+         $this->adminModel->updatePengaturan($data);
+         $this->session->setFlashdata('success', 'Berhasil Diperbarui.');
+         return redirect()->to('/beranda');
+      }
+      $beranda = $this->adminModel->detailSetting();
+      return view('admin/beranda/index', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Beranda',
+         'beranda' => $beranda,
+         'validation' => $this->validation
+      ]);
+   }
+
 }
