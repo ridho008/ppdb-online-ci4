@@ -8,7 +8,7 @@ class UserModel extends Model
 {
    protected $table = 'user';
    protected $primaryKey = 'id';
-   protected $allowedFields = ['username', 'nama', 'foto'];
+   protected $allowedFields = ['username', 'nama', 'foto', 'password'];
    protected $returnType = 'App\Entities\User';
 
    public function getUserID($id)

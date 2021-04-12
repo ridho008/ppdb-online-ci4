@@ -33,8 +33,14 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
-$routes->get('/pengaturan', 'Admin::pengaturan');
-$routes->get('/beranda', 'Admin::beranda');
+$routes->group('admin', ['filter' => 'admin'], function($routes) {
+   $routes->get('/pengaturan', 'Admin::pengaturan');
+   $routes->get('/beranda', 'Admin::beranda');
+});
+
+// $routes->group('siswa', ['filter' => 'siswa'], function($routes) {
+//    $routes->get('/siswa', 'Siswa::index');
+// });
 
 /*
  * --------------------------------------------------------------------

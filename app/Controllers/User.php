@@ -56,7 +56,6 @@ class User extends BaseController
          if(!$errors) {
             $userEntities = new \App\Entities\User();
             $userEntities->fill($data);
-            $userEntities->setPassword($this->request->getPost('password'));
             $userEntities->foto = $this->request->getFile('foto');
             $this->userModel->save($userEntities);
 
@@ -100,7 +99,7 @@ class User extends BaseController
          unlink('./img/user/'.$user->foto);
       }
       $this->userModel->delete($id);
-      $this->session->setFlashdata('success', 'Berhasil Hapus Data Pekerjaan.');
+      $this->session->setFlashdata('success', 'Berhasil Hapus Data User.');
       return redirect()->to('/user');
    }
 }

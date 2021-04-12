@@ -88,6 +88,7 @@ class Auth extends BaseController
                   'id' => $siswa['id'],
                   'nama' => $siswa['nama'],
                   'nisn' => $siswa['nisn'],
+                  'logged_siswa' => true
                ];
                $this->session->set($setSession);
                return redirect()->to('/siswa');

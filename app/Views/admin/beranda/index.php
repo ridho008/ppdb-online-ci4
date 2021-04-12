@@ -14,7 +14,7 @@
       <div class="card-body">
         <form method="post" action="/admin/beranda">
           <div class="form-group">
-            <textarea id="summernote" name="beranda"><?= $beranda['beranda']; ?></textarea>
+            <textarea id="summernote" name="beranda"><?= (!empty($beranda['beranda'])) ? $beranda['beranda'] : '' ?></textarea>
             <small class="muted text-danger"><?= $validation->getError('beranda'); ?></small>
           </div>
           <div class="form-group">

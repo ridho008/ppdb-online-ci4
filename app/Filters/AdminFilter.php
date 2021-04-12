@@ -10,27 +10,30 @@ class AdminFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        if(session()->get('username') == '') {
-         return redirect()->to('/');
-        }
+        // if(session()->get('username') == null) {
+        //     return redirect()->to('/auth');
+        // }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        if(session()->get('username') != null) {
-            return redirect()->to('/admin');
-        }
+        // if(session()->get('username')) {
+        //     return redirect()->to('/admin');
+        // }
+        // if(session()->get('username') != null) {
+        //     return redirect()->to('/admin');
+        // }
 
-        if(session()->get('username') != null) {
-            if(uri_string() == 'auth') {
-                return redirect()->to('/admin');
-            }
-        } 
+        // if(session()->get('username') != null) {
+        //     if(uri_string() == 'auth') {
+        //         return redirect()->to('/admin');
+        //     }
+        // } 
 
-        if(session()->get('username') != null) {
-            if(uri_string() == 'siswa') {
-                return redirect()->to('/admin');
-            }
-        }
+        // if(session()->get('username') != null) {
+        //     if(uri_string() == 'siswa') {
+        //         return redirect()->to('/admin');
+        //     }
+        // }
     }
 }

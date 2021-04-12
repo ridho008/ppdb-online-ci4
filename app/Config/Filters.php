@@ -32,16 +32,17 @@ class Filters extends BaseConfig
 	 */
 	public $globals = [
 		'before' => [
-			// 'honeypot',
-			// 'csrf',
-			// 'admin' => ['except' => 
-			// 		[
-			// 		'auth', 'auth/*',
-			// 		'home', 'home/*',
-			// 		'pendaftaran', 'pendaftaran/*',
-			// 		'/',
-			// 		]
-			// ],
+			'honeypot',
+			'csrf',
+			'auth' => ['except' => 
+					[
+					'auth/',
+					'home/',
+					'pendaftaran/',
+					'/',
+					'auth/loginSiswa',
+					]
+			],
 		],
 		'after'  => [
 			'toolbar',
@@ -73,31 +74,33 @@ class Filters extends BaseConfig
 	public $filters = [
 		'siswa' => [
 			'before' => [
-				'home', 'home/*',
+				'auth/logoutSiswa',
+				'siswa/',
+				'admin/',
+				'jurusan/', 'agama/',
+				'banner/', 'jalurMasuk',
+				'pendidikan', 'penghasilan',
+				'tahunAjaran', 'admin/beranda',
+				'admin/pengaturan',
 			],
 			'after' => [
-				'home','home/*',
-				'admin', 'admin/*',
-				'pekerjaan', 'pekerjaan/*',
-				'pendidikan', 'pendidikan/*',
-				'agama', 'agama/*',
-				'user', 'user/*',
-				'penghasilan', 'penghasilan/*',
-				'tahunAjaran', 'tahunAjaran/*',
-				'jurusan', 'jurusan/*',
-				'pendaftaran', 'pendaftaran/*',
+				'auth/',
+				'admin/', 'jurusan/',
+				'auth/loginSiswa',
+				'pendaftaran',
 			],
 		],
 
+		// jika sudah login, boleh akses berikut ini
 		'admin' => [
 			'before' => [
-				'home', 'home/*',
+				'auth/logout',
 			],
+			// jika sudah login, tidak boleh akses berikut ini
 			'after' => [
-				'home','home/*',
-				'auth', 'auth/logout',
-				'auth', 'auth/loginSiswa',
-				'auth', 'index',
+				'siswa',
+				'auth/',
+				'auth/loginSiswa',
 			],
 		],
 	];

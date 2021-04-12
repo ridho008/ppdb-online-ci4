@@ -38,10 +38,14 @@ $setting = $db->table('pengaturan')
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo"><a href="/admin" class="simple-text logo-normal">
+        <?php if(!empty($setting)) : ?>
         <img src="/img/<?= $setting->logo; ?>" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
           PPDB Online
-        </a></div>
+        </a>
+      <?php endif ?>
+      </div>
       <div class="sidebar-wrapper">
+        <?php var_dump(session()->get()); ?>
         <ul class="nav">
           <li class="nav-item<?= (uri_string() == 'admin') ? ' active' : '' ?>">
             <a class="nav-link" href="/admin">
@@ -104,8 +108,8 @@ $setting = $db->table('pengaturan')
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/banner"><i class="material-icons">image</i> Banner</a>
-                <a class="dropdown-item" href="/beranda"><i class="material-icons">calendar_today</i> Beranda</a>
-                <a class="dropdown-item" href="/pengaturan"><i class="material-icons">website</i> Website</a>
+                <a class="dropdown-item" href="/admin/beranda"><i class="material-icons">calendar_today</i> Beranda</a>
+                <a class="dropdown-item" href="/admin/pengaturan"><i class="material-icons">website</i> Website</a>
                 <a class="dropdown-item" href="/tahunAjaran"><i class="material-icons">calendar_today</i> Tahun Ajaran</a>
                 <div class="dropdown-divider"></div>
               </div>

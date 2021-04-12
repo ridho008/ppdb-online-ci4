@@ -8,8 +8,10 @@ $setting = $db->table('pengaturan')
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="/">
+        <?php if(!empty($setting)) : ?>
         <img src="/img/<?= $setting->logo ?>" width="30" height="30" class="d-inline-block align-top" alt="PPDB Online" loading="lazy">
         <?= $setting->nama_sekolah ?>
+      <?php endif; ?>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -20,7 +20,7 @@ $ta = $db->table('tahun_ajaran')
 			  <div class="carousel-inner">
 			  	<?php 
 			  	$arrActice = [1,2,3];
-			  	var_dump($arrActice[0]);
+			  	// var_dump($arrActice[0]);
 			  	?>
 			  	<?php foreach($banner as $key => $ban) : ?>
 			  		<?= var_dump($key); ?>
@@ -88,7 +88,9 @@ $ta = $db->table('tahun_ajaran')
 			<div class="card">
 				<div class="card-header">Beranda</div>
 				<div class="card-body">
+					<?php if(!empty($beranda['beranda'])) : ?>
 					<?= $beranda['beranda']; ?>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
