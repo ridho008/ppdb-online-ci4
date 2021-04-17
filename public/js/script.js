@@ -242,4 +242,33 @@ $(function() {
       });
    });
 
+   // Lampiran
+   $('#formLampiranTambah').click(function() {
+      $('#formModalLabelLampiran').html('Tambah Data Lampiran');
+      $('.modal-body form').attr('action', '/lampiran/create');
+      $('.modal-footer button[type=submit]').html('Simpan');
+      $('#lampiran').val('');
+   });
+
+   $('.formLampiranEdit').click(function() {
+      $('#formModalLabelLampiran').html('Edit Data Lampiran');
+      $('.modal-body form').attr('action', '/lampiran/edit');
+      $('.modal-footer button[type=submit]').html('Edit');
+
+      var id = $(this).data("id");
+      console.log(id);
+
+      $.ajax({
+         url : 'http://localhost:8080/lampiran/getId',
+         method : 'post',
+         dataType : 'json',
+         data : {id: id},
+         success: function(data) {
+            console.log(data);
+            $('#id').val(data.id);
+            $('#lampiran').val(data.lampiran);
+         }
+      });
+   });
+
 });

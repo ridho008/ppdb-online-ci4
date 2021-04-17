@@ -195,4 +195,16 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $lampiran = [
+		'lampiran' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $lampiran_errors = [
+		'jalur_masuk' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }

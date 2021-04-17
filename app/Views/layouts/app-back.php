@@ -95,6 +95,12 @@ $setting = $db->table('pengaturan')
               <p>Jurusan</p>
             </a>
           </li>
+          <li class="nav-item<?= (uri_string() == 'lampiran') ? ' active' : '' ?>">
+            <a class="nav-link" href="/admin/lampiran">
+              <i class="material-icons">card_membership</i>
+              <p>Lampiran</p>
+            </a>
+          </li>
           <li class="nav-item<?= (uri_string() == 'jalurMasuk') ? ' active' : '' ?>">
             <a class="nav-link" href="/jalurMasuk">
               <i class="material-icons">calendar_view_day</i>
@@ -154,6 +160,8 @@ $setting = $db->table('pengaturan')
                 echo "Jalur Masuk";
               } else if(uri_string() == 'beranda') {
                 echo "Beranda";
+              } else if(uri_string() == 'lampiran') {
+                echo "Lampiran";
               }
 
               ?>
