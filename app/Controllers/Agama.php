@@ -41,6 +41,42 @@ class Agama extends BaseController
       ]);
 	}
 
+   public function getRowAgama()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'agama' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('agama');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $agamas = new AgamaModel();
+         $agama = $agamas->select('*')
+                ->where('agama', $_POST['agama'])
+                ->get()->getRowArray();
+
+         $data['agama'] = $agama;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->agamaModel->getAgamaID($_POST['id']));

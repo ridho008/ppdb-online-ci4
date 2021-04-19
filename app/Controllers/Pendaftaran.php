@@ -42,6 +42,24 @@ class Pendaftaran extends BaseController
                  'required' => '{field} wajib diisi.',
               ]
            ],
+           'tgl' => [
+              'rules' => 'required',
+              'errors' => [
+                 'required' => '{field} wajib diisi.',
+              ]
+           ],
+           'bulan' => [
+              'rules' => 'required',
+              'errors' => [
+                 'required' => '{field} wajib diisi.',
+              ]
+           ],
+           'tanggal' => [
+              'rules' => 'required',
+              'errors' => [
+                 'required' => '{field} wajib diisi.',
+              ]
+           ],
         ])) {
            return redirect()->to('/pendaftaran')->withInput();
         }
@@ -57,7 +75,8 @@ class Pendaftaran extends BaseController
             'password' => $this->request->getPost('nisn'),
             'tmp_lahir' => $this->request->getPost('tmp_lahir'),
             'tgl_lahir' => $tbt,
-            'no_pendaftaran' => $kodePendaftaran
+            'no_pendaftaran' => $kodePendaftaran,
+            'tgl_pendaftaran' => date('Y-m-d'),
         ]);
 
         $this->session->setFlashdata('success', 'Akun Siswa Berhasil Dibuat.');

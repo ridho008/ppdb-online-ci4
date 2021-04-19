@@ -41,6 +41,23 @@ class Banner extends BaseController
       ]);
 	}
 
+   public function getRowBanner()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+         
+         // Fetch record
+         $banners = new BannerModel();
+         $banner = $banners->select('*')
+                ->where('id', $_POST['id'])
+                ->get()->getRowArray();
+
+         $data['banner'] = $banner;
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->bannerModel->getBannerID($_POST['id']));
@@ -79,6 +96,7 @@ class Banner extends BaseController
             $bannerEntities->fill($data);
             if($this->request->getFile('banner')->isValid()) {
                $bannerEntities->banner = $this->request->getFile('banner');
+               unlink('./img/'.$this->request->getPost('bannerLama'));
             }
             $this->bannerModel->save($bannerEntities);
 

@@ -41,6 +41,42 @@ class Jurusan extends BaseController
       ]);
 	}
 
+   public function getRowJurusan()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'jurusan' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('jurusan');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $jurusans = new JurusanModel();
+         $jurusan = $jurusans->select('*')
+                ->where('jurusan', $_POST['jurusan'])
+                ->get()->getRowArray();
+
+         $data['jurusan'] = $jurusan;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->jurusanModel->getJurusanID($_POST['id']));

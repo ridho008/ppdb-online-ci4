@@ -165,7 +165,7 @@ class Validation
 			'rules' => 'required'
 		],
 		'banner' => [
-			'rules' => 'uploaded[banner]|max_size[banner,1024]|mime_in[banner,image/png,image/jpg,image/jpeg]'
+			'rules' => 'uploaded[banner]|max_size[banner,2024]|mime_in[banner,image/png,image/jpg,image/jpeg]'
 		],
 	];
 
@@ -203,7 +203,7 @@ class Validation
 	];
 
 	public $lampiran_errors = [
-		'jalur_masuk' => [
+		'lampiran' => [
 			'required' => '{field} wajib diisi.'
 		],
 	];

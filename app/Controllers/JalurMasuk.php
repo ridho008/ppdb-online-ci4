@@ -41,6 +41,23 @@ class JalurMasuk extends BaseController
       ]);
 	}
 
+   public function getRowJalurMasuk()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+         
+         // Fetch record
+         $jalurMasuks = new JalurMasukModel();
+         $jalur = $jalurMasuks->select('*')
+                ->where('jalur_masuk', $_POST['jalur'])
+                ->get()->getRowArray();
+
+         $data['jalur'] = $jalur;
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->jalurModel->getJalurID($_POST['id']));

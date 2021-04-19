@@ -89,6 +89,7 @@ $banner = [
       </div>
       <div class="modal-body">
         <?= form_open_multipart('/banner/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('Keterangan', 'ket'); ?>

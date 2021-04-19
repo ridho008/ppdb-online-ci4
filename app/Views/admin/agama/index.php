@@ -41,7 +41,7 @@
                      <td><?= $offset + $key + 1; ?></td>
                      <td><?= $p->agama; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formAgamaEdit" data-toggle="modal" data-target="#formModalTambahAgama" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formAgamaEdit" data-toggle="modal" data-target="#formModalTambahAgama" data-agama="<?= $p->agama ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/agama/delete/'.$p->id); ?>
@@ -80,6 +80,7 @@ $agama = [
       </div>
       <div class="modal-body">
         <?= form_open('/agama/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('agama', 'agama'); ?>

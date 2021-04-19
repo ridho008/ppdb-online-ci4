@@ -19,4 +19,11 @@ class SiswaModel extends Model
              ->limit(1)
              ->get()->getRow();
    }
+
+   public function getBiodataSiswa($id_siswa)
+   {
+      return $this->db->table('siswa')
+              ->where('id', $id_siswa)
+              ->get()->getRow();
+   }
 }

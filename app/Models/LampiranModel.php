@@ -8,7 +8,7 @@ class LampiranModel extends Model
 {
    protected $table = 'lampiran';
    protected $primaryKey = 'id';
-   protected $allowedFields = ['lampiran'];
+   protected $allowedFields = ['id','lampiran'];
    protected $returnType = 'App\Entities\Lampiran';
 
    public function getLampiranID($id)

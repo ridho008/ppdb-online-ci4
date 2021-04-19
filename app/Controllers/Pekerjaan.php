@@ -45,6 +45,43 @@ class Pekerjaan extends BaseController
       echo json_encode($this->pekerjaanModel->getPekerjaanID($_POST['id']));
    }
 
+   public function getRowPekerjaan()
+   { 
+      $rowPekerjaan = $this->pekerjaanModel->where('pekerjaan', $_POST['pekerjaan'])->get()->getRowArray();
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'pekerjaan' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('pekerjaan');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $pekerjaans = new PekerjaanModel();
+         $pekerjaan = $pekerjaans->select('*')
+                ->where('pekerjaan', $_POST['pekerjaan'])
+                ->get()->getRowArray();
+
+         $data['pekerjaan'] = $pekerjaan;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function create()
    {
       if($this->request->getPost()) {

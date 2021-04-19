@@ -46,6 +46,42 @@ class Pendidikan extends BaseController
       echo json_encode($this->pendidikanModel->getPendidikanID($_POST['id']));
    }
 
+   public function getRowPendidikan()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'pendidikan' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('pendidikan');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $pendidikans = new PendidikanModel();
+         $pendidikan = $pendidikans->select('*')
+                ->where('pendidikan', $_POST['pendidikan'])
+                ->get()->getRowArray();
+
+         $data['pendidikan'] = $pendidikan;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function create()
    {
       if($this->request->getPost()) {

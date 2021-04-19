@@ -49,7 +49,7 @@
                      <td><?= $p->username; ?></td>
                      <td><?= $p->nama; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formUserEdit" data-toggle="modal" data-target="#formModalTambahUser" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formUserEdit" data-toggle="modal" data-target="#formModalTambahUser" data-username="<?= $p->username ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/user/delete/'.$p->id); ?>
@@ -98,6 +98,7 @@ $nama = [
       </div>
       <div class="modal-body">
         <?= form_open_multipart('/user/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('Username', 'username'); ?>
@@ -112,7 +113,8 @@ $nama = [
            <?= form_input($nama); ?>
         </div>
         <div class="form-group">
-           <?= form_label('Foto', 'foto'); ?>
+           <?= form_label('Foto', 'foto'); ?><br>
+           <img src="" alt="" id="priviewImg" width="100px">
            <input type="file" name="foto" id="foto" class="form-control">
            <input type="hidden" name="fotoLama" id="fotoLama" class="form-control">
         </div>

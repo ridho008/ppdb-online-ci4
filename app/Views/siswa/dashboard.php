@@ -24,6 +24,11 @@ $ta = $db->table('tahun_ajaran')
                     <th>Jalur Pendaftaran</th>
                     <th><a href="" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a></th>
                   </tr>
+                  <tr>
+                    <td><?= $siswa->nisn; ?></td>
+                    <td><?= $siswa->no_pendaftaran; ?></td>
+                    <td><?= $siswa->no_pendaftaran; ?></td>
+                  </tr>
                 </table>
                 <div class="row">
                   <div class="col-md-4">

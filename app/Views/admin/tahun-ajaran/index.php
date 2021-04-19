@@ -59,7 +59,7 @@
                         <?php endif; ?>
                      </td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formTahunEdit" data-toggle="modal" data-target="#formModalTambahTahun" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formTahunEdit" data-toggle="modal" data-target="#formModalTambahTahun" data-tahun="<?= $p->tahun ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/tahunAjaran/delete/'.$p->id); ?>
@@ -98,6 +98,7 @@ $ta = [
       </div>
       <div class="modal-body">
         <?= form_open('/tahunAjaran/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('Tahun', 'tahun'); ?>

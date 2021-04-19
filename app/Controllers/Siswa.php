@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use \App\Models\SiswaModel;
+
 class Siswa extends BaseController
 {
    public function __construct()
@@ -16,9 +17,11 @@ class Siswa extends BaseController
 
 	public function index()
 	{
+      $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
          'subtitle' => 'Dashboard',
+         'siswa' => $siswa,
       ]);
 	}
 

@@ -41,7 +41,7 @@
                      <td><?= $offset + $key + 1; ?></td>
                      <td><?= $p->pendidikan; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formPendidikanEdit" data-toggle="modal" data-target="#formModalTambahPendidikan" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formPendidikanEdit" data-toggle="modal" data-target="#formModalTambahPendidikan" data-pendidikan="<?= $p->pendidikan ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/pendidikan/delete/'.$p->id); ?>
@@ -80,6 +80,7 @@ $pendidikan = [
       </div>
       <div class="modal-body">
         <?= form_open('/pendidikan/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('pendidikan', 'pendidikan'); ?>

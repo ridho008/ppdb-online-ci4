@@ -41,7 +41,7 @@
                      <td><?= $offset + $key + 1; ?></td>
                      <td><?= number_format($p->penghasilan,0,',','.'); ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formPenghasilanEdit" data-toggle="modal" data-target="#formModalTambahPenghasilan" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formPenghasilanEdit" data-toggle="modal" data-target="#formModalTambahPenghasilan" data-penghasilan="<?= $p->penghasilan ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/penghasilan/delete/'.$p->id); ?>
@@ -80,6 +80,7 @@ $penghasilan = [
       </div>
       <div class="modal-body">
         <?= form_open('/penghasilan/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('penghasilan', 'penghasilan'); ?>

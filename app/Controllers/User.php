@@ -41,6 +41,42 @@ class User extends BaseController
       ]);
 	}
 
+   public function getRowUser()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'username' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('username');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $users = new UserModel();
+         $user = $users->select('*')
+                ->where('username', $_POST['username'])
+                ->get()->getRowArray();
+
+         $data['user'] = $user;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->userModel->getUserID($_POST['id']));
@@ -71,23 +107,23 @@ class User extends BaseController
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'agama');
+         $this->validation->run($data, 'user');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $agamaEntities = new \App\Entities\Agama();
-            $agamaEntities->fill($data);
+            $userEntities = new \App\Entities\User();
+            $userEntities->fill($data);
             if($this->request->getFile('foto')->isValid()) {
                $user->foto = $this->request->getFile('foto');
                unlink('./img/user/'.$this->request->getPost('fotoLama'));
             }
-            $this->agamaModel->save($agamaEntities);
+            $this->userModel->save($userEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Edit Data.');
-            return redirect()->to('/agama');
+            return redirect()->to('/user');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/agama');
+         return redirect()->to('/user');
       }
    }
 

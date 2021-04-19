@@ -41,7 +41,7 @@
                      <td><?= $offset + $key + 1; ?></td>
                      <td><?= $p->lampiran; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formLampiranEdit" data-toggle="modal" data-target="#formModalTambahLampiran" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formLampiranEdit" data-toggle="modal" data-target="#formModalTambahLampiran" data-lampiran="<?= $p->lampiran ?>" data-id="<?= $p->id ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/lampiran/delete/'.$p->id); ?>
@@ -80,9 +80,10 @@ $lampiran = [
       </div>
       <div class="modal-body">
         <?= form_open('/lampiran/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
-           <?= form_label('Lampiran', 'ampiran'); ?>
+           <?= form_label('Lampiran', 'lampiran'); ?>
            <?= form_input($lampiran); ?>
         </div>
          <div class="modal-footer">

@@ -41,7 +41,7 @@
                      <td><?= $offset + $key + 1; ?></td>
                      <td><?= $p->jurusan; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formJurusanEdit" data-toggle="modal" data-target="#formModalTambahJurusan" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formJurusanEdit" data-toggle="modal" data-target="#formModalTambahJurusan" data-jurusan="<?= $p->jurusan ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/jurusan/delete/'.$p->id); ?>
@@ -80,6 +80,7 @@ $jurusan = [
       </div>
       <div class="modal-body">
         <?= form_open('/jurusan/create'); ?>
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="form-group">
            <input type="hidden" name="id" id="id">
            <?= form_label('Jurusan', 'jurusan'); ?>

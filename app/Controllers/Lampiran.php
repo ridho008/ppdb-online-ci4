@@ -41,6 +41,46 @@ class Lampiran extends BaseController
       ]);
 	}
 
+   public function getRowLampiran()
+   {
+
+      $request = service('request');
+      $postData = $request->getPost();
+
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'lampiran' => 'required'
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('lampiran');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $lampirans = new LampiranModel();
+         $lampiran = $lampirans->select('*')
+                ->where('lampiran', $_POST['lampiran'])
+                ->get()->getRowArray();
+
+         $data['lampiran'] = $lampiran;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->lampiranModel->getLampiranID($_POST['id']));
@@ -70,19 +110,19 @@ class Lampiran extends BaseController
    {
       if($this->request->getPost()) {
          $data = $this->request->getPost();
-         $this->validation->run($data, 'agama');
+         $this->validation->run($data, 'lampiran');
          $errors = $this->validation->getErrors();
 
          if(!$errors) {
-            $agamaEntities = new \App\Entities\Agama();
-            $agamaEntities->fill($data);
-            $this->agamaModel->save($agamaEntities);
+            $lampiranEntities = new \App\Entities\Lampiran();
+            $lampiranEntities->fill($data);
+            $this->lampiranModel->save($lampiranEntities);
 
             $this->session->setFlashdata('success', 'Berhasil Edit Data.');
-            return redirect()->to('/agama');
+            return redirect()->to('/lampiran');
          }
          $this->session->setFlashdata('errors', $errors);
-         return redirect()->to('/agama');
+         return redirect()->to('/lampiran');
       }
    }
 

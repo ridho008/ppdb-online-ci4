@@ -41,6 +41,42 @@ class Penghasilan extends BaseController
       ]);
 	}
 
+   public function getRowPenghasilan()
+   { 
+      $data = array();
+
+      // Read new token and assign in $data['token']
+      $data['token'] = csrf_hash();
+
+      ## Validation
+      $validation = \Config\Services::validation();
+
+      $input = $validation->setRules([
+        'penghasilan' => 'required',
+      ]);
+
+      if ($validation->withRequest($this->request)->run() == FALSE){
+
+         $data['success'] = 0;
+         $data['error'] = $validation->getError('penghasilan');// Error response
+
+      }else{
+
+         $data['success'] = 1;
+         
+         // Fetch record
+         $penghasilans = new PenghasilanModel();
+         $penghasilan = $penghasilans->select('*')
+                ->where('penghasilan', $_POST['penghasilan'])
+                ->get()->getRowArray();
+
+         $data['penghasilan'] = $penghasilan;
+
+      }
+
+      return $this->response->setJSON($data);
+   }
+
    public function getId()
    {
       echo json_encode($this->penghasilanModel->getPenghasilanID($_POST['id']));

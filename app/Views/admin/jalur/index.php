@@ -43,7 +43,7 @@
                      <td><?= $p->jalur_masuk; ?></td>
                      <td><?= $p->kouta; ?></td>
                      <td>
-                        <button type="button" class="btn btn-success btn-sm formJalurEdit" data-toggle="modal" data-target="#formModalTambahJalur" data-id="<?= $p->id ?>">
+                        <button type="button" class="btn btn-success btn-sm formJalurEdit" data-toggle="modal" data-target="#formModalTambahJalur" data-jalur="<?= $p->jalur_masuk ?>">
                           <i class="material-icons">mode_edit</i>
                         </button>
                          <?= form_open('/jalurMasuk/delete/'.$p->id); ?>
@@ -89,7 +89,8 @@ $kouta = [
       </div>
       <div class="modal-body">
         <?= form_open('/jalurMasuk/create'); ?>
-        <input type="hidden" name="id" id="id">
+        <input type="hidden" class="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
+        <input type="text" name="id" id="id">
         <div class="form-group">
            <?= form_label('Jalur Masuk', 'jalur_masuk'); ?>
            <?= form_input($jalur_masuk); ?>
