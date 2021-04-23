@@ -7,6 +7,7 @@ $db = \Config\Database::connect();
 $ta = $db->table('tahun_ajaran')
               ->where('status', 1)
               ->get()->getRowArray();
+
 ?>
 <div class="container">
    <div class="row">
@@ -22,12 +23,16 @@ $ta = $db->table('tahun_ajaran')
                     <th>No.Pendaftaran</th>
                     <th>Tanggal Pendaftaran</th>
                     <th>Jalur Pendaftaran</th>
-                    <th><a href="" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></a></th>
+                    <th>
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#formModalPendaftaran">
+                      <i class="fa fa-pencil"></i>
+                    </button></th>
                   </tr>
                   <tr>
                     <td><?= $siswa->nisn; ?></td>
                     <td><?= $siswa->no_pendaftaran; ?></td>
-                    <td><?= $siswa->no_pendaftaran; ?></td>
+                    <td><?= $siswa->tgl_pendaftaran; ?></td>
+                    <td><?= ($siswa->jalur_masuk) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->jalur_masuk; ?></td>
                   </tr>
                 </table>
                 <div class="row">
@@ -326,6 +331,56 @@ $ta = $db->table('tahun_ajaran')
          </div>
       </div>
    </div>
+</div>
+
+
+<!-- Modal Pendaftaran -->
+<div class="modal fade" id="formModalPendaftaran" tabindex="-1" aria-labelledby="formModalLabelPendaftaran" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelPendaftaran">Tambah Data Agama</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open('/siswa/updatePendaftaran'); ?>
+        <?= csrf_field() ?>
+        <input type="text" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="form-group">
+          <label>Nisn</label>
+          <p><?= $siswa->nisn ?></p>
+        </div>
+        <div class="form-group">
+          <label>No Pendaftaran</label>
+          <p><?= $siswa->no_pendaftaran ?></p>
+        </div>
+        <div class="form-group">
+          <label>Tanggal Pendaftaran</label>
+          <p><?= $siswa->tgl_pendaftaran ?></p>
+        </div>
+        <div class="form-group">
+           <?= form_label('Jalur Masuk', 'Jalur Masuk'); ?>
+           <select name="id_jalur_masuk" id="id_jalur_masuk" class="form-control">
+             <option value="">-- Pilih Jalur Masuk --</option>
+             <?php foreach($jalurMasuk as $jm) : ?>
+              <?php if($jm->id_jalur == $siswa->id_jalur_masuk): ?>
+             <option value="<?= $jm->id_jalur ?>" selected><?= $jm->jalur_masuk ?></option>
+             <?php else: ?>
+             <option value="<?= $jm->id_jalur ?>"><?= $jm->jalur_masuk ?></option>
+             <?php endif; ?>
+           <?php endforeach; ?>
+           </select>
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
 </div>
 
 <?= $this->endSection(); ?>

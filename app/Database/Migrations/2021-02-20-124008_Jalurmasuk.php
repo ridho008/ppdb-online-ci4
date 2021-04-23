@@ -9,7 +9,7 @@ class Jalurmasuk extends Migration
 	public function up()
 	{
 		$this->forge->addField([
-         'id' => [
+         'id_jalur' => [
             'type'           => 'INT',
             'constraint'     => 5,
             'unsigned'       => true,
@@ -25,7 +25,7 @@ class Jalurmasuk extends Migration
          ],
       ]);
 
-      $this->forge->addKey('id', true);
+      $this->forge->addKey('id_jalur', true);
       $this->forge->createTable('jalur_masuk');
 	}
 
