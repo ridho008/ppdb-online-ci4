@@ -41,4 +41,38 @@ class Siswa extends BaseController
       session()->setFlashdata('success', 'Berhasil Perbarui Jalur Masuk.');
       return redirect()->to('/siswa');
    }
+
+   public function ubahFoto()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if(!$this->validate([
+          'foto' => 'uploaded[foto]|max_size[foto,1024]'
+      ])) {
+         return redirect()->to('/siswa')->withInput();
+      }
+
+      $siswa = $this->siswaModel->getRowSiswa($id_siswa);
+      if($siswa['foto'] != null || $siswa['foto'] != '') {
+         unlink('img/siswa/'. $this->request->getPost('fotoLama'));
+      }
+      
+      $foto = $this->request->getFile('foto');
+      if($foto->getError() == 4) {
+         $namaFoto = 'default.png';
+      } else {
+         // generate namaSampul random
+         $namaFoto = time() . $foto->getRandomName();
+         // pindahkan file ke folder img
+         $foto->move('img/siswa', $namaFoto);
+
+      }
+      
+      $data = [
+         'foto' => $namaFoto,
+      ];
+      $this->siswaModel->updateSiswa($id_siswa, $data);
+
+      session()->setFlashdata('success', 'Berhasil Perbarui Foto Profil.');
+      return redirect()->to('/siswa');
+   }
 }

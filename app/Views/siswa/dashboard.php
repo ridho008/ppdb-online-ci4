@@ -42,7 +42,15 @@ $ta = $db->table('tahun_ajaran')
                             <h4 class="card-title text-center">Foto</h4>
                         </div>
                        <div class="card-body">
-                          <img src="" alt="">
+                          <?php if($siswa->foto == null) : ?>
+                          <img src="<?= base_url('img/siswa/default.jpg'); ?>" alt="" class="img-fluid">
+                          <?php else: ?>
+                          <img src="<?= base_url('img/siswa/'. $siswa->foto); ?>" alt="" class="img-fluid">
+                          <small class="muted text-danger"><?= \Config\Services::validation()->getError('foto'); ?></small>
+                          <?php endif; ?>
+                          <button type="button" class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#formModalFoto">
+                            <i class="fa fa-pencil"></i>
+                          </button>
                        </div>
                      </div>
                   </div>
@@ -78,6 +86,18 @@ $ta = $db->table('tahun_ajaran')
                                       <p>name...</p>
                                     </div>
                                  </div>
+                                 <div class="form-group row">
+                                   <label class="col col-form-label">Jumlah Saudara</label>
+                                   <div class="col-sm-10">
+                                     <p>name...</p>
+                                   </div>
+                                </div>
+                                <div class="form-group row">
+                                   <label class="col col-form-label">Anak Ke-</label>
+                                   <div class="col-sm-10">
+                                     <p>name...</p>
+                                   </div>
+                                </div>
                              </div>
                              <div class="col-md-6">
                                 <div class="form-group row">
@@ -294,6 +314,49 @@ $ta = $db->table('tahun_ajaran')
                   </div>
                 </div>
 
+                <!-- Alamat Lengkap -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card">
+                       <div class="card-header card-header-primary">
+                           <h4 class="card-title text-center">Alamat Lengkap</h4>
+                       </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                               <label class="col col-form-label">Provinsi</label>
+                               <div class="col-sm-10">
+                                 <p>name...</p>
+                               </div>
+                            </div>
+                            <div class="form-group row">
+                               <label class="col col-form-label">Kabupaten</label>
+                               <div class="col-sm-10">
+                                 <p>name...</p>
+                               </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                               <label class="col col-form-label">Kecamatan</label>
+                               <div class="col-sm-10">
+                                 <p>name...</p>
+                               </div>
+                            </div>
+                            <div class="form-group row">
+                               <label class="col col-form-label">Alamat</label>
+                               <div class="col-sm-10">
+                                 <p>name...</p>
+                               </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <!-- File Pendukung -->
                 <div class="row">
                   <div class="col-md-12">
@@ -347,7 +410,7 @@ $ta = $db->table('tahun_ajaran')
       <div class="modal-body">
         <?= form_open('/siswa/updatePendaftaran'); ?>
         <?= csrf_field() ?>
-        <input type="text" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
         <div class="form-group">
           <label>Nisn</label>
           <p><?= $siswa->nisn ?></p>
@@ -372,6 +435,40 @@ $ta = $db->table('tahun_ajaran')
              <?php endif; ?>
            <?php endforeach; ?>
            </select>
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ganti Foto -->
+<div class="modal fade" id="formModalFoto" tabindex="-1" aria-labelledby="formModalLabelFoto" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelFoto">Ubah Foto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open_multipart('/siswa/ubahFoto'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="form-group">
+          <label for="foto">Foto</label><br>
+          <?php if($siswa->foto == null) : ?>
+          <img src="<?= base_url('img/siswa/default.jpg'); ?>" alt="" class="img-fluid" width="200px">
+          <?php else: ?>
+          <img src="<?= base_url('img/siswa/'. $siswa->foto); ?>" alt="" class="img-fluid" width="200px">
+          <?php endif; ?>
+          <input type="file" name="foto" id="foto" class="form-control-file">
+          <input type="hidden" name="fotoLama" id="fotoLama" class="form-control" value="<?= $siswa->foto; ?>">
         </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

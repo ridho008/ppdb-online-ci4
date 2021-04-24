@@ -8,7 +8,7 @@ class SiswaModel extends Model
 {
    protected $table = 'siswa';
    protected $primaryKey = 'id';
-   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir', 'no_pendaftaran'];
+   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir', 'no_pendaftaran', 'foto'];
    protected $returnType = 'App\Entities\Siswa';
 
    public function noPendaftaran()
@@ -33,5 +33,12 @@ class SiswaModel extends Model
       $this->db->table('siswa')
                 ->where('id', $id)
                 ->update($data);
+   }
+
+   public function getRowSiswa($id)
+   {
+    return $this->db->table('siswa')
+            ->where('id', $id)
+            ->get()->getRowArray();
    }
 }
