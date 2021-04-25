@@ -23,8 +23,10 @@ class SiswaModel extends Model
    public function getBiodataSiswa($id_siswa)
    {
       return $this->db->table('siswa')
+              ->select('*', 'agama.id AS id_agama')
               ->join('jalur_masuk', 'jalur_masuk.id_jalur = siswa.id_jalur_masuk', 'left')
-              ->where('id', $id_siswa)
+              ->join('agama', 'id_agama = siswa.id_agama', 'left')
+              ->where('siswa.id', $id_siswa)
               ->get()->getRow();
    }
 

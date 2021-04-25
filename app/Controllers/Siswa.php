@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use \App\Models\SiswaModel;
 use \App\Models\JalurMasukModel;
+use \App\Models\AgamaModel;
 
 class Siswa extends BaseController
 {
@@ -15,17 +16,21 @@ class Siswa extends BaseController
       $this->validation = \Config\Services::validation();
       $this->siswaModel = new \App\Models\SiswaModel();
       $this->jalurModel = new \App\Models\JalurMasukModel();
+      $this->agamaModel = new AgamaModel();
    }
 
 	public function index()
 	{
       $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
       $jalurMasuk = $this->jalurModel->findAll();
+      $agama = $this->agamaModel->findAll();
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
          'subtitle' => 'Dashboard',
          'siswa' => $siswa,
+         'agama' => $agama,
          'jalurMasuk' => $jalurMasuk,
+         'validation' => $this->validation,
       ]);
 	}
 
@@ -74,5 +79,39 @@ class Siswa extends BaseController
 
       session()->setFlashdata('success', 'Berhasil Perbarui Foto Profil.');
       return redirect()->to('/siswa');
+   }
+
+   public function ubahIdentitas()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'identitas');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $arr = [
+               'nik' => $this->request->getPost('nik'),
+               'nama' => $this->request->getPost('nama'),
+               'tmp_lahir' => $this->request->getPost('tmp_lahir'),
+               'berat' => $this->request->getPost('berat'),
+               'id_agama' => $this->request->getPost('agama'),
+               'jml_saudara' => $this->request->getPost('jml_saudara'),
+               'anak_ke' => $this->request->getPost('anak_ke'),
+               'tinggi' => $this->request->getPost('tinggi'),
+               'tgl_lahir' => $this->request->getPost('tgl_lahir'),
+               'jk' => $this->request->getPost('jk'),
+               'no_telp' => $this->request->getPost('no_telp'),
+            ];
+
+            $this->siswaModel->updateSiswa($id_siswa, $arr);
+            $this->session->setFlashdata('success', 'Berhasil Perbarui Identitas Didik.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+
+      }
    }
 }

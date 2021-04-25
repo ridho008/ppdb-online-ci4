@@ -207,4 +207,77 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	// Halaman Dashboad Siswa
+	public $identitas = [
+		'nik' => [
+			'rules' => 'required'
+		],
+		'nama' => [
+			'rules' => 'required'
+		],
+		'tmp_lahir' => [
+			'rules' => 'required'
+		],
+		'berat' => [
+			'rules' => 'required'
+		],
+		'agama' => [
+			'rules' => 'required'
+		],
+		'jml_saudara' => [
+			'rules' => 'required'
+		],
+		'anak_ke' => [
+			'rules' => 'required'
+		],
+		'tinggi' => [
+			'rules' => 'required'
+		],
+		'tgl_lahir' => [
+			'rules' => 'required'
+		],
+		'jk' => [
+			'rules' => 'required'
+		],
+		'no_telp' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $identitas_errors = [
+		'nik' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'nama' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'tmp_lahir' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'berat' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'agama' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'jml_saudara' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'anak_ke' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'tinggi' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'tgl_lahir' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'jk' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'no_telp' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }
