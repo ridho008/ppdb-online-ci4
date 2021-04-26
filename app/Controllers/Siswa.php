@@ -6,6 +6,9 @@ use App\Controllers\BaseController;
 use \App\Models\SiswaModel;
 use \App\Models\JalurMasukModel;
 use \App\Models\AgamaModel;
+use \App\Models\PekerjaanModel;
+use \App\Models\PenghasilanModel;
+use \App\Models\PendidikanModel;
 
 class Siswa extends BaseController
 {
@@ -17,6 +20,9 @@ class Siswa extends BaseController
       $this->siswaModel = new \App\Models\SiswaModel();
       $this->jalurModel = new \App\Models\JalurMasukModel();
       $this->agamaModel = new AgamaModel();
+      $this->pendidikanModel = new PendidikanModel();
+      $this->pekerjaanModel = new PekerjaanModel();
+      $this->penghasilanModel = new PenghasilanModel();
    }
 
 	public function index()
@@ -24,11 +30,18 @@ class Siswa extends BaseController
       $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
       $jalurMasuk = $this->jalurModel->findAll();
       $agama = $this->agamaModel->findAll();
+      $pendidikan = $this->pendidikanModel->findAll();
+      $pekerjaan = $this->pekerjaanModel->findAll();
+      $penghasilan = $this->penghasilanModel->findAll();
+
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
          'subtitle' => 'Dashboard',
          'siswa' => $siswa,
+         'pendidikan' => $pendidikan,
          'agama' => $agama,
+         'pekerjaan' => $pekerjaan,
+         'penghasilan' => $penghasilan,
          'jalurMasuk' => $jalurMasuk,
          'validation' => $this->validation,
       ]);
@@ -106,6 +119,34 @@ class Siswa extends BaseController
 
             $this->siswaModel->updateSiswa($id_siswa, $arr);
             $this->session->setFlashdata('success', 'Berhasil Perbarui Identitas Didik.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+      }
+   }
+
+   public function ubahAyah()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'ayah');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $arr = [
+               'nik_ayah' => $this->request->getPost('nik_ayah'),
+               'nama_ayah' => $this->request->getPost('nama_ayah'),
+               'penghasilan_ayah' => $this->request->getPost('penghasilan_ayah'),
+               'pendidikan_ayah' => $this->request->getPost('pendidikan_ayah'),
+               'pekerjaan_ayah' => $this->request->getPost('pekerjaan_ayah'),
+               'telp_ayah' => $this->request->getPost('telp_ayah'),
+            ];
+
+            $this->siswaModel->updateSiswa($id_siswa, $arr);
+            $this->session->setFlashdata('success', 'Berhasil Perbarui Data Ayah Kandung.');
             return redirect()->to('/siswa');
          } else {
             $this->session->setFlashdata('errors', $errors);

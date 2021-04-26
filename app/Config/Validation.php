@@ -280,4 +280,46 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $ayah = [
+		'nik_ayah' => [
+			'rules' => 'required'
+		],
+		'nama_ayah' => [
+			'rules' => 'required'
+		],
+		'pekerjaan_ayah' => [
+			'rules' => 'required'
+		],
+		'pendidikan_ayah' => [
+			'rules' => 'required'
+		],
+		'penghasilan_ayah' => [
+			'rules' => 'required'
+		],
+		'telp_ayah' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $ayah_errors = [
+		'nik_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'nama_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'pekerjaan_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'pendidikan_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'penghasilan_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'telp_ayah' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }

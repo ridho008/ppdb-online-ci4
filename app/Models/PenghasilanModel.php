@@ -9,7 +9,7 @@ class PenghasilanModel extends Model
    protected $table = 'penghasilan';
    protected $primaryKey = 'id';
    protected $allowedFields = ['penghasilan'];
-   protected $returnType = 'App\Entities\penghasilan';
+   protected $returnType = 'App\Entities\Penghasilan';
 
    public function getPenghasilanID($id)
    {
