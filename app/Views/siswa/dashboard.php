@@ -231,21 +231,24 @@ $errorsIdentitas = $session->getFlashdata('errors');
                   <div class="col-md-12">
                     <div class="card">
                        <div class="card-header card-header-primary">
-                           <h4 class="card-title text-center">Data Ibu Kandung</h4>
+                           <h4 class="card-title text-center" style="display: inline-block;">Data Ibu Kandung</h4>
+                           <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalIbu">
+                              <i class="fa fa-pencil"></i>
+                            </button>
                        </div>
                       <div class="card-body">
                         <div class="row">
                           <div class="col-md-4">
                             <div class="form-group row">
-                               <label class="col col-form-label">NIK Ibu</label>
+                               <label class="col col-form-label">NIK</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->nik_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->nik_ibu; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">Nama Ibu</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->nama_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->nama_ibu; ?></p>
                                </div>
                             </div>
                           </div>
@@ -253,13 +256,13 @@ $errorsIdentitas = $session->getFlashdata('errors');
                             <div class="form-group row">
                                <label class="col col-form-label">Pekerjaan</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->pekerjaan_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->pekerjaan_ibu; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">Pendidikan</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->pendidikan_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->pendidikan_ibu; ?></p>
                                </div>
                             </div>
                           </div>
@@ -267,13 +270,13 @@ $errorsIdentitas = $session->getFlashdata('errors');
                             <div class="form-group row">
                                <label class="col col-form-label">Penghasilan/Bulan</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->penghasilan_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : number_format($siswa->penghasilan_ibu,0,',','.'); ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">No.Telepon</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->telp_ibu) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->telp_ibu; ?></p>
                                </div>
                             </div>
                           </div>
@@ -288,7 +291,10 @@ $errorsIdentitas = $session->getFlashdata('errors');
                   <div class="col-md-12">
                     <div class="card">
                        <div class="card-header card-header-primary">
-                           <h4 class="card-title text-center">Sekolah Asal</h4>
+                           <h4 class="card-title text-center" style="display: inline-block;">Sekolah Asal</h4>
+                           <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalSekolah">
+                              <i class="fa fa-pencil"></i>
+                            </button>
                        </div>
                       <div class="card-body">
                         <div class="row">
@@ -296,47 +302,28 @@ $errorsIdentitas = $session->getFlashdata('errors');
                             <div class="form-group row">
                                <label class="col col-form-label">Tahun Lulus</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->tahun_lulus) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->tahun_lulus; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">Nama Sekolah</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->nama_sekolah) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->nama_sekolah; ?></p>
                                </div>
                             </div>
                           </div>
-                          <div class="col-md-4">
-                            <div class="form-group row">
-                               <label class="col col-form-label">Provinsi</label>
-                               <div class="col-sm-10">
-                                 <p>name...</p>
-                               </div>
-                            </div>
-                            <div class="form-group row">
-                               <label class="col col-form-label">Kabupaten</label>
-                               <div class="col-sm-10">
-                                 <p>name...</p>
-                               </div>
-                            </div>
-                            <div class="form-group row">
-                               <label class="col col-form-label">Kecamatan</label>
-                               <div class="col-sm-10">
-                                 <p>name...</p>
-                               </div>
-                            </div>
-                          </div>
+                          
                           <div class="col-md-4">
                             <div class="form-group row">
                                <label class="col col-form-label">No.Izajah</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->no_izajah) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->no_izajah; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">No.SKHU</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->no_skhun) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->no_skhun; ?></p>
                                </div>
                             </div>
                           </div>
@@ -351,35 +338,38 @@ $errorsIdentitas = $session->getFlashdata('errors');
                   <div class="col-md-12">
                     <div class="card">
                        <div class="card-header card-header-primary">
-                           <h4 class="card-title text-center">Alamat Lengkap</h4>
+                           <h4 class="card-title text-center" style="display: inline-block;">Alamat Lengkap</h4>
+                           <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalAlamat">
+                              <i class="fa fa-pencil"></i>
+                            </button>
                        </div>
                       <div class="card-body">
                         <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-4">
                             <div class="form-group row">
                                <label class="col col-form-label">Provinsi</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->provinsi) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->provinsi; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">Kabupaten</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->nama_kabupaten) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->nama_kabupaten; ?></p>
                                </div>
                             </div>
                           </div>
-                          <div class="col-md-6">
+                          <div class="col-md-5">
                             <div class="form-group row">
                                <label class="col col-form-label">Kecamatan</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->kecamatan) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->kecamatan; ?></p>
                                </div>
                             </div>
                             <div class="form-group row">
                                <label class="col col-form-label">Alamat</label>
                                <div class="col-sm-10">
-                                 <p>name...</p>
+                                 <p><?= ($siswa->alamat) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->alamat; ?></p>
                                </div>
                             </div>
                           </div>
@@ -684,5 +674,220 @@ $errorsIdentitas = $session->getFlashdata('errors');
     </div>
   </div>
 </div>
+
+<!-- Modal Update Data Ibu -->
+<div class="modal fade" id="formModalIbu" tabindex="-1" aria-labelledby="formModalLabelIbu" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelIbu">Ubah Data Ibu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open('/siswa/ubahIbu'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="nik_ibu">NIK Ibu</label>
+              <input type="text" name="nik_ibu" id="nik_ibu" class="form-control" value="<?= $siswa->nik_ibu; ?>">
+            </div>
+            <div class="form-group">
+              <label for="nama_ibu">Nama Ibu</label>
+              <input type="text" name="nama_ibu" id="nama_ibu" class="form-control" value="<?= $siswa->nama_ibu; ?>">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="pekerjaan_ibu">Pekerjaan Ibu</label>
+              <select name="pekerjaan_ibu" id="pekerjaan_ibu" class="form-control">
+               <option value="">-- Pilih Pekerjaan --</option>
+               <?php foreach($pekerjaan as $p) : ?>
+                <?php if($p->pekerjaan == $siswa->pekerjaan_ibu): ?>
+               <option value="<?= $p->pekerjaan ?>" selected><?= $p->pekerjaan ?></option>
+               <?php else: ?>
+               <option value="<?= $p->pekerjaan ?>"><?= $p->pekerjaan ?></option>
+               <?php endif; ?>
+             <?php endforeach; ?>
+             </select>
+            </div>
+            <div class="form-group">
+              <label for="pendidikan_ibu">Pendidikan Ibu</label>
+              <select name="pendidikan_ibu" id="pendidikan_ibu" class="form-control">
+               <option value="">-- Pilih Pendidikan --</option>
+               <?php foreach($pendidikan as $p) : ?>
+                <?php if($p->pendidikan == $siswa->pendidikan_ibu): ?>
+               <option value="<?= $p->pendidikan ?>" selected><?= $p->pendidikan ?></option>
+               <?php else: ?>
+               <option value="<?= $p->pendidikan ?>"><?= $p->pendidikan ?></option>
+               <?php endif; ?>
+             <?php endforeach; ?>
+             </select>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="penghasilan_ibu">Penghasilan Ibu</label>
+              <select name="penghasilan_ibu" id="penghasilan_ibu" class="form-control">
+               <option value="">-- Pilih Penghasilan --</option>
+               <?php foreach($penghasilan as $p) : ?>
+                <?php if($p->penghasilan == $siswa->penghasilan_ibu): ?>
+               <option value="<?= $p->penghasilan ?>" selected><?= number_format($p->penghasilan,0, ',', '.') ?></option>
+               <?php else: ?>
+               <option value="<?= $p->penghasilan ?>"><?= number_format($p->penghasilan,0, ',', '.') ?></option>
+               <?php endif; ?>
+             <?php endforeach; ?>
+             </select>
+            </div>
+            <div class="form-group">
+              <label for="telp_ibu">Telpon Ibu</label>
+              <input type="number" name="telp_ibu" id="telp_ibu" class="form-control" value="<?= $siswa->telp_ibu; ?>">
+            </div>
+          </div>
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Update Data Sekolah Asal -->
+<div class="modal fade" id="formModalSekolah" tabindex="-1" aria-labelledby="formModalLabelSekolah" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelSekolah">Ubah Data Sekolah Asal</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open('/siswa/ubahSekolah'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nama_sekolah">Nama Sekolah</label>
+              <input type="text" name="nama_sekolah" id="nama_sekolah" class="form-control" value="<?= $siswa->nama_sekolah; ?>">
+            </div>
+            <div class="form-group">
+              <label for="tahun_lulus">Tahun Lulus</label>
+              <select name="tahun_lulus" id="tahun_lulus" class="form-control">
+                <option value="">-- Pilih Tahun --</option>
+                <?php for($i = 2015; $i < date('Y'); $i++) : ?>
+                  <?php if($i == $siswa->tahun_lulus) : ?>
+                    <option value="<?= $i; ?>" selected><?= $i ?></option>
+                    <?php else: ?>
+                    <option value="<?= $i; ?>"><?= $i ?></option>
+                  <?php endif; ?>
+                <?php endfor; ?>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="no_izajah">No.Ijazah</label>
+              <input type="number" name="no_izajah" id="no_izajah" class="form-control" value="<?= $siswa->no_izajah; ?>">
+            </div>
+            <div class="form-group">
+              <label for="no_skhun">No.SKHUN</label>
+              <input type="number" name="no_skhun" id="no_skhun" class="form-control" value="<?= $siswa->no_skhun; ?>">
+            </div>
+          </div>
+          
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Update Data Alamat -->
+<div class="modal fade" id="formModalAlamat" tabindex="-1" aria-labelledby="formModalLabelAlamat" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelAlamat">Ubah Data Alamat</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open('/siswa/ubahAlamat'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="provinsi">Provinsi</label>
+              <select name="provinsi" id="provinsi" class="form-control">
+                <option value="">-- Pilih Provinsi --</option>
+                <?php foreach($provinsi as $p) : ?>
+                  <option value="<?= $p['id_provinsi']; ?>"><?= $p['provinsi']; ?></option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kabupaten">kabupaten</label>
+              <select name="kabupaten" id="kabupaten" class="form-control"></select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="kecamatan">kecamatan</label>
+              <input type="text" name="kecamatan" id="kecamatan" class="form-control" value="<?= $siswa->kecamatan; ?>">
+            </div>
+            <div class="form-group">
+              <label for="alamat">Alamat</label>
+              <input type="text" name="alamat" id="alamat" class="form-control" value="<?= $siswa->alamat; ?>">
+            </div>
+          </div>
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/assets/js/core/jquery.min.js"></script>
+<script>
+
+  $(function() {
+    $('select[name=provinsi]').change(function() {
+      const id_provinsi = $(this).val();
+      // console.log(id_provinsi);
+
+      if(id_provinsi) {
+        $.ajax({
+          url: 'http://localhost:8080/siswa/getIDProvinsi/' + id_provinsi,
+          type: 'get',
+          dataType: 'json',
+          success: function(data) {
+            console.log(JSON.stringify(data));
+            $('select[name=kabupaten]').empty();
+            $.each(data, function(key, value) {
+              $('select[name=kabupaten]').append(`<option value="`+ value.id_kabupaten +`">`+ value.nama_kabupaten +`</option>`);
+           });
+          }
+        })
+      }
+    })
+  })
+</script>
 
 <?= $this->endSection(); ?>

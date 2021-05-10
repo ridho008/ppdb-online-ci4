@@ -26,6 +26,8 @@ class SiswaModel extends Model
               ->select('*', 'agama.id AS id_agama')
               ->join('jalur_masuk', 'jalur_masuk.id_jalur = siswa.id_jalur_masuk', 'left')
               ->join('agama', 'id_agama = siswa.id_agama', 'left')
+              ->join('kabupaten', 'kabupaten.id_kabupaten = siswa.id_kabupaten', 'left')
+              ->join('provinsi', 'provinsi.id_provinsi = siswa.id_provinsi', 'left')
               ->where('siswa.id', $id_siswa)
               ->get()->getRow();
    }
@@ -42,5 +44,18 @@ class SiswaModel extends Model
     return $this->db->table('siswa')
             ->where('id', $id)
             ->get()->getRowArray();
+   }
+
+   public function getAllProvinsi()
+   {
+    return $this->db->table('provinsi')
+            ->get()->getResultArray();
+   }
+
+   public function getByIdProvinsi($id_provinsi)
+   {
+    return $this->db->table('kabupaten')
+            ->where('id_provinsi', $id_provinsi)
+            ->get()->getResultArray();
    }
 }

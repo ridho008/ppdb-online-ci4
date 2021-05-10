@@ -33,6 +33,7 @@ class Siswa extends BaseController
       $pendidikan = $this->pendidikanModel->findAll();
       $pekerjaan = $this->pekerjaanModel->findAll();
       $penghasilan = $this->penghasilanModel->findAll();
+      $provinsi = $this->siswaModel->getAllProvinsi();
 
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
@@ -43,6 +44,7 @@ class Siswa extends BaseController
          'pekerjaan' => $pekerjaan,
          'penghasilan' => $penghasilan,
          'jalurMasuk' => $jalurMasuk,
+         'provinsi' => $provinsi,
          'validation' => $this->validation,
       ]);
 	}
@@ -154,5 +156,131 @@ class Siswa extends BaseController
          }
 
       }
+   }
+
+   public function ubahIbu()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'ibu');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $arr = [
+               'nik_ibu' => $this->request->getPost('nik_ibu'),
+               'nama_ibu' => $this->request->getPost('nama_ibu'),
+               'penghasilan_ibu' => $this->request->getPost('penghasilan_ibu'),
+               'pendidikan_ibu' => $this->request->getPost('pendidikan_ibu'),
+               'pekerjaan_ibu' => $this->request->getPost('pekerjaan_ibu'),
+               'telp_ibu' => $this->request->getPost('telp_ibu'),
+            ];
+
+            $this->siswaModel->updateSiswa($id_siswa, $arr);
+            $this->session->setFlashdata('success', 'Berhasil Perbarui Data Ibu Kandung.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+
+      }
+   }
+
+   public function ubahAlamat()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'alamat');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $arr = [
+               'id_provinsi' => $this->request->getPost('provinsi'),
+               'id_kabupaten' => $this->request->getPost('kabupaten'),
+               'kecamatan' => $this->request->getPost('kecamatan'),
+               'alamat' => $this->request->getPost('alamat'),
+            ];
+
+            $this->siswaModel->updateSiswa($id_siswa, $arr);
+            $this->session->setFlashdata('success', 'Berhasil Perbarui Data Alamat.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+
+      }
+   }
+
+   public function ubahSekolah()
+   {
+      $id_siswa = $this->request->getPost('id_siswa');
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'sekolah');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $arr = [
+               'nama_sekolah' => $this->request->getPost('nama_sekolah'),
+               'tahun_lulus' => $this->request->getPost('tahun_lulus'),
+               'no_izajah' => $this->request->getPost('no_izajah'),
+               'no_skhun' => $this->request->getPost('no_skhun'),
+            ];
+
+            $this->siswaModel->updateSiswa($id_siswa, $arr);
+            $this->session->setFlashdata('success', 'Berhasil Perbarui Data Sekolah Asal.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+
+      }
+   }
+
+   public function cobaApi()
+   {
+      $curl = curl_init();
+
+      curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.rajaongkir.com/starter/city",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+          "key: 9000c3eb2c5a219fded1eb17cce0144f"
+        ),
+      ));
+
+      // $response = curl_exec($curl);
+      // $err = curl_error($curl);
+      // $city = json_decode($response,true);
+      // $coba = $city['rajaongkir']['results'];
+      // foreach ($coba as $value) {
+      //    echo "<option value='". $value['city_id'] ."'>". $value['province'] ."</option>";
+      // }
+      // var_dump($coba);
+      $response = curl_exec($curl);
+      $err = curl_error($curl);
+
+      curl_close($curl);
+
+      if ($err) {
+        echo "cURL Error #:" . $err;
+      } else {
+        echo $response;
+      }
+   }
+
+   public function getIDProvinsi($id_provinsi)
+   {
+      $provinsi = $this->siswaModel->getByIdProvinsi($id_provinsi);
+      return json_encode($provinsi);
    }
 }

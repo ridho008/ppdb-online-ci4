@@ -322,4 +322,106 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $ibu = [
+		'nik_ibu' => [
+			'rules' => 'required'
+		],
+		'nama_ibu' => [
+			'rules' => 'required'
+		],
+		'pekerjaan_ibu' => [
+			'rules' => 'required'
+		],
+		'pendidikan_ibu' => [
+			'rules' => 'required'
+		],
+		'penghasilan_ibu' => [
+			'rules' => 'required'
+		],
+		'telp_ibu' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $ibu_errors = [
+		'nik_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'nama_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'pekerjaan_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'pendidikan_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'penghasilan_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'telp_ibu' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
+
+	public $alamat = [
+		'provinsi' => [
+			'rules' => 'required'
+		],
+		'kabupaten' => [
+			'rules' => 'required'
+		],
+		'kecamatan' => [
+			'rules' => 'required'
+		],
+		'alamat' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $alamat_errors = [
+		'provinsi' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'kabupaten' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'kecamatan' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'alamat' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
+
+	public $sekolah = [
+		'nama_sekolah' => [
+			'rules' => 'required'
+		],
+		'tahun_lulus' => [
+			'rules' => 'required'
+		],
+		'no_izajah' => [
+			'rules' => 'required'
+		],
+		'no_skhun' => [
+			'rules' => 'required'
+		],
+	];
+
+	public $sekolah_errors = [
+		'nama_sekolah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'tahun_lulus' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'no_izajah' => [
+			'required' => '{field} wajib diisi.'
+		],
+		'no_skhun' => [
+			'required' => '{field} wajib diisi.'
+		],
+	];
 }
