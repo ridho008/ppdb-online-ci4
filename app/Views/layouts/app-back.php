@@ -96,7 +96,7 @@ $setting = $db->table('pengaturan')
             </a>
           </li>
           <li class="nav-item<?= (uri_string() == 'lampiran') ? ' active' : '' ?>">
-            <a class="nav-link" href="/admin/lampiran">
+            <a class="nav-link" href="/lampiran">
               <i class="material-icons">card_membership</i>
               <p>Lampiran</p>
             </a>

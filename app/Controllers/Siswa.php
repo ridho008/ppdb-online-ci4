@@ -9,6 +9,7 @@ use \App\Models\AgamaModel;
 use \App\Models\PekerjaanModel;
 use \App\Models\PenghasilanModel;
 use \App\Models\PendidikanModel;
+use \App\Models\LampiranModel;
 
 class Siswa extends BaseController
 {
@@ -23,28 +24,34 @@ class Siswa extends BaseController
       $this->pendidikanModel = new PendidikanModel();
       $this->pekerjaanModel = new PekerjaanModel();
       $this->penghasilanModel = new PenghasilanModel();
+      $this->lampiranModel = new LampiranModel();
    }
 
 	public function index()
 	{
+      //d(session()->get());
       $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
       $jalurMasuk = $this->jalurModel->findAll();
+      $lampiran = $this->lampiranModel->findAll();
       $agama = $this->agamaModel->findAll();
       $pendidikan = $this->pendidikanModel->findAll();
       $pekerjaan = $this->pekerjaanModel->findAll();
       $penghasilan = $this->penghasilanModel->findAll();
       $provinsi = $this->siswaModel->getAllProvinsi();
+      $berkas = $this->siswaModel->getAllBerkas(session()->get('id'));
 
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
          'subtitle' => 'Dashboard',
          'siswa' => $siswa,
+         'berkas' => $berkas,
          'pendidikan' => $pendidikan,
          'agama' => $agama,
          'pekerjaan' => $pekerjaan,
          'penghasilan' => $penghasilan,
          'jalurMasuk' => $jalurMasuk,
          'provinsi' => $provinsi,
+         'lampiran' => $lampiran,
          'validation' => $this->validation,
       ]);
 	}
@@ -282,5 +289,52 @@ class Siswa extends BaseController
    {
       $provinsi = $this->siswaModel->getByIdProvinsi($id_provinsi);
       return json_encode($provinsi);
+   }
+
+   public function insertBerkas()
+   {
+      if($this->request->getPost()) {
+         $data = $this->request->getPost();
+         $this->validation->run($data, 'berkas');
+         $errors = $this->validation->getErrors();
+
+         if(!$errors) {
+            $berkas = $this->request->getFile('berkas');
+            if($berkas->getError() == 4) {
+               $namaberkas = 'default.png';
+            } else {
+               // generate namaSampul random
+               $namaberkas = time() . $berkas->getRandomName();
+               // pindahkan file ke folder img
+               $berkas->move('img/berkas', $namaberkas);
+
+            }
+            $arr = [
+               'id_siswa' => $this->request->getPost('id_siswa'),
+               'id_lampiran' => $this->request->getPost('lampiran'),
+               'ket_berkas' => $this->request->getPost('ket_berkas'),
+               'berkas' => $namaberkas,
+            ];
+
+            $this->siswaModel->insertBerkas($arr);
+            $this->session->setFlashdata('success', 'Berkas berhasil disimpan.');
+            return redirect()->to('/siswa');
+         } else {
+            $this->session->setFlashdata('errors', $errors);
+            return redirect()->to('/siswa');
+         }
+
+      }
+   }
+
+   public function deleteBerkas($id_berkas)
+   {
+      $berkas = $this->siswaModel->getBerkasById($id_berkas);
+      if($berkas['berkas']) {
+         unlink('img/berkas/' . $berkas['berkas']);
+      }
+      $this->siswaModel->deleteBerkas($id_berkas);
+      $this->session->setFlashdata('success', 'Berkas Berhasil diHapus.');
+      return redirect()->to('/siswa');
    }
 }

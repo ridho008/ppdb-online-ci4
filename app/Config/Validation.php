@@ -424,4 +424,19 @@ class Validation
 			'required' => '{field} wajib diisi.'
 		],
 	];
+
+	public $berkas = [
+		'lampiran' => [
+			'rules' => 'required'
+		],
+		'id_siswa' => [
+			'rules' => 'required'
+		],
+		'ket_berkas' => [
+			'rules' => 'required'
+		],
+		'berkas' => [
+			'rules' => 'uploaded[berkas]|max_size[berkas,1024]|ext_in[berkas,pdf]'
+		],
+	];
 }

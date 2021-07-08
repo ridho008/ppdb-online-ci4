@@ -16,6 +16,17 @@ $errorsIdentitas = $session->getFlashdata('errors');
    <div class="row">
       <div class="col-md-6">
           <h4 class="display-4">Formulir Pendaftaran Peserta Didik</h4>
+          <?php if($errorsIdentitas != null) : ?>
+            <?php foreach ($errorsIdentitas as $error) : ?>
+              <ul>
+                  <li>
+                  <div class="alert alert-danger" role="alert">
+                      <?= $error ?>
+                    </div>
+                  </li>
+                </ul>
+             <?php endforeach ?>
+          <?php endif; ?>
       </div>
       <div class="col-md-6">
          <p class="text-muted float-right">Tahun Ajaran Tahun <?= $ta['ta']; ?></p>
@@ -69,17 +80,6 @@ $errorsIdentitas = $session->getFlashdata('errors');
                             </button>
                         </div>
                        <div class="card-body">
-                        <?php if($errorsIdentitas != null) : ?>
-                          <?php foreach ($errorsIdentitas as $error) : ?>
-                            <ul>
-                                <li>
-                                <div class="alert alert-danger" role="alert">
-                                    <?= $error ?>
-                                  </div>
-                                </li>
-                              </ul>
-                           <?php endforeach ?>
-                        <?php endif; ?>
                           <div class="row">
                              <div class="col-md-6">
                                  <div class="form-group row">
@@ -384,7 +384,10 @@ $errorsIdentitas = $session->getFlashdata('errors');
                   <div class="col-md-12">
                     <div class="card">
                        <div class="card-header card-header-primary">
-                           <h4 class="card-title text-center">File Pendukung</h4>
+                           <h4 class="card-title text-center" style="display: inline-block;">Berkas Lampiran</h4>
+                           <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalBerkas">
+                              <i class="fa fa-plus"></i>
+                           </button>
                        </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -392,11 +395,30 @@ $errorsIdentitas = $session->getFlashdata('errors');
                             <thead>
                               <tr>
                                 <th>#</th>
-                                <th>Jenis File</th>
+                                <th>Jenis</th>
+                                <th>Keterangan</th>
                                 <th>File</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
+                            <tbody>
+                              <?php $no = 1; foreach($berkas as $b) : ?>
+                                 <tr>
+                                    <td><?=  $no++;?></td>
+                                    <td><?=  $b['lampiran'];?></td>
+                                    <td><?=  $b['ket_berkas'];?></td>
+                                    <td><a href="<?= base_url('img/berkas/' . $b['berkas']); ?>"><?=  $b['berkas'];?></a></td>
+                                    <td>
+                                       <a href="<?= base_url('siswa/deleteBerkas/' . $b['id_berkas']) ?>" onclick="return confirm('Yakin')" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                 </tr>
+                              <?php endforeach; ?>
+                              <?php if(empty($berkas)) : ?>
+                                 <tr>
+                                    <td colspan="5"><div class="text-danger font-weight-bold text-center">Data Berkas Masih Kosong!.</div></td>
+                                 </tr>
+                              <?php endif; ?>
+                            </tbody>
                           </table>
                         </div>
                       </div>
@@ -841,7 +863,9 @@ $errorsIdentitas = $session->getFlashdata('errors');
             </div>
             <div class="form-group">
               <label for="kabupaten">kabupaten</label>
-              <select name="kabupaten" id="kabupaten" class="form-control"></select>
+              <select name="kabupaten" id="kabupaten" class="form-control">
+                 
+              </select>
             </div>
           </div>
           <div class="col-md-6">
@@ -854,6 +878,48 @@ $errorsIdentitas = $session->getFlashdata('errors');
               <input type="text" name="alamat" id="alamat" class="form-control" value="<?= $siswa->alamat; ?>">
             </div>
           </div>
+        </div>
+         <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+           <button type="submit" class="btn btn-primary">Simpan</button>
+         </div>
+        <?= form_close(); ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tambah Berkas Lampiran -->
+<div class="modal fade" id="formModalBerkas" tabindex="-1" aria-labelledby="formModalLabelBerkas" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelBerkas">Tambah Berkas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?= form_open_multipart('/siswa/insertBerkas'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <div class="form-group">
+           <label for="lampiran">Lampiran</label>
+           <select name="lampiran" id="lampiran" required class="form-control">
+               <option value="">-- Pilih Lampiran --</option>
+               <?php foreach($lampiran as $l) : ?>
+                  <option value="<?= $l->id ?>"><?= $l->lampiran ?></option>
+               <?php endforeach; ?>
+           </select>
+        </div>
+        <div class="form-group">
+           <label for="ket_berkas">Keterangan</label>
+           <input type="text" name="ket_berkas" id="ket_berkas" class="form-control" required>
+        </div>
+        <div class="form-group">
+           <label for="berkas">Upload Berkas</label>
+           <input type="file" name="berkas" id="berkas" accept=".pdf" class="form-control-file" required><br>
+           <span class="muted text-danger">Wajib .PDF</span>
         </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

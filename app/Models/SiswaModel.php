@@ -52,10 +52,39 @@ class SiswaModel extends Model
             ->get()->getResultArray();
    }
 
+   public function getAllBerkas($id_siswa)
+   {
+    return $this->db->table('berkas')
+            ->join('siswa', 'berkas.id_siswa = siswa.id', 'left')
+            ->join('lampiran', 'berkas.id_lampiran = lampiran.id', 'left')
+            ->where('berkas.id_siswa', $id_siswa)
+            ->get()->getResultArray();
+   }
+
    public function getByIdProvinsi($id_provinsi)
    {
     return $this->db->table('kabupaten')
             ->where('id_provinsi', $id_provinsi)
             ->get()->getResultArray();
+   }
+
+   public function insertBerkas($data)
+   {
+      $this->db->table('berkas')
+                ->insert($data);
+   }
+
+   public function deleteBerkas($id_berkas)
+   {
+      $this->db->table('berkas')
+               ->where('id_berkas', $id_berkas)
+               ->delete();
+   }
+
+   public function getBerkasById($id_berkas)
+   {
+      return $this->db->table('berkas')
+            ->where('id_berkas', $id_berkas)
+            ->get()->getRowArray();
    }
 }
