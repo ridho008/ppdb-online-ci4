@@ -10,6 +10,7 @@ use \App\Models\PekerjaanModel;
 use \App\Models\PenghasilanModel;
 use \App\Models\PendidikanModel;
 use \App\Models\LampiranModel;
+use \App\Models\JurusanModel;
 
 class Siswa extends BaseController
 {
@@ -25,11 +26,12 @@ class Siswa extends BaseController
       $this->pekerjaanModel = new PekerjaanModel();
       $this->penghasilanModel = new PenghasilanModel();
       $this->lampiranModel = new LampiranModel();
+      $this->jurusanModel = new JurusanModel();
    }
 
 	public function index()
 	{
-      //d(session()->get());
+      // d(session()->get());
       $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
       $jalurMasuk = $this->jalurModel->findAll();
       $lampiran = $this->lampiranModel->findAll();
@@ -39,12 +41,14 @@ class Siswa extends BaseController
       $penghasilan = $this->penghasilanModel->findAll();
       $provinsi = $this->siswaModel->getAllProvinsi();
       $berkas = $this->siswaModel->getAllBerkas(session()->get('id'));
+      $jurusan = $this->jurusanModel->findAll();
 
       return view('siswa/dashboard', [
          'title' => 'PPDB Online',
          'subtitle' => 'Dashboard',
          'siswa' => $siswa,
          'berkas' => $berkas,
+         'jurusan' => $jurusan,
          'pendidikan' => $pendidikan,
          'agama' => $agama,
          'pekerjaan' => $pekerjaan,
@@ -58,14 +62,16 @@ class Siswa extends BaseController
 
    public function updatePendaftaran()
    {
+      // dd($this->request->getPost());
       $id_siswa = $this->request->getPost('id_siswa');
       $data = [
-         'id_jalur_masuk' => $this->request->getPost('id_jalur_masuk')
+         'id_jalur_masuk' => $this->request->getPost('id_jalur_masuk'),
+         'id_jurusan' => $this->request->getPost('id_jurusan'),
       ];
 
       $this->siswaModel->updateSiswa($id_siswa, $data);
 
-      session()->setFlashdata('success', 'Berhasil Perbarui Jalur Masuk.');
+      session()->setFlashdata('success', 'Berhasil Perbarui Data Diri.');
       return redirect()->to('/siswa');
    }
 
@@ -335,6 +341,16 @@ class Siswa extends BaseController
       }
       $this->siswaModel->deleteBerkas($id_berkas);
       $this->session->setFlashdata('success', 'Berkas Berhasil diHapus.');
+      return redirect()->to('/siswa');
+   }
+
+   public function simpanPendaftaran($id_siswa)
+   {
+      $data = [
+         'status_pendaftaran' => 1,
+      ];
+      $this->siswaModel->updateStatusPendaftaran($data, $id_siswa);
+      $this->session->setFlashdata('success', 'Data Diri Anda Berhasil Dikirim.');
       return redirect()->to('/siswa');
    }
 }

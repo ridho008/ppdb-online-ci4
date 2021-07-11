@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use \App\Models\AdminModel;
+use \App\Models\SiswaModel;
 class Admin extends BaseController
 {
    public function __construct()
@@ -10,6 +11,7 @@ class Admin extends BaseController
       $this->session = session();
       $this->validation = \Config\Services::validation();
       $this->adminModel = new \App\Models\AdminModel();
+      $this->siswaModel = new \App\Models\SiswaModel();
    }
 
 	public function index()
@@ -156,6 +158,74 @@ class Admin extends BaseController
          'beranda' => $beranda,
          'validation' => $this->validation
       ]);
+   }
+
+   // ********************** Pendaftaran Admin *************************
+   public function masuk()
+   {
+      $statusMasuk = $this->adminModel->getAllPendaftaranByStatus(0, 1);
+      // d($statusMasuk);
+      return view('admin/pendaftaran/masuk', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Pendaftaran Masuk',
+         'statusMasuk' => $statusMasuk,
+      ]);
+   }
+
+   public function detailSiswa($id_siswa)
+   {
+      $detailSiswa = $this->siswaModel->getBiodataSiswa($id_siswa);
+      $berkas = $this->siswaModel->getAllBerkas($id_siswa);
+      return view('admin/pendaftaran/detail_siswa', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Detail Biodata Siswa | Pendaftaran Masuk',
+         'siswa' => $detailSiswa,
+         'berkas' => $berkas,
+      ]);
+   }
+
+   // routes = /admin/terima
+   public function terima()
+   {
+      $statusMasuk = $this->adminModel->getAllPendaftaranByStatus(1, 1);
+      return view('admin/pendaftaran/terima', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Diterima',
+         'statusMasuk' => $statusMasuk,
+      ]);
+   }
+
+   // routes = /admin/tolak
+   public function tolak()
+   {
+      $statusMasuk = $this->adminModel->getAllPendaftaranByStatus(2, 1);
+      return view('admin/pendaftaran/tolak', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Ditolak',
+         'statusMasuk' => $statusMasuk,
+      ]);
+   }
+
+   public function diterima($id_siswa)
+   {
+      $data = [
+         'status_ppdb' => 1,
+      ];
+
+      $this->siswaModel->update($id_siswa, $data);
+      $this->session->setFlashdata('success', 'Siswa berhasil diterima.');
+      return redirect()->to('/admin/masuk');
+   }
+
+   public function ditolak($id_siswa)
+   {
+      $data = [
+         'status_ppdb' => 2,
+      ];
+
+      $this->siswaModel->update($id_siswa, $data);
+      $this->session->setFlashdata('success', 'Siswa telah ditolak.');
+      return redirect()->to('/admin/masuk');
    }
 
 }

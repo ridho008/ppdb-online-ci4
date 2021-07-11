@@ -48,11 +48,23 @@ $ta = $db->table('tahun_ajaran')
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="form-group">
 									<label for="tmp_lahir">Tempat Lahir</label>
 									<input type="text" class="form-control" name="tmp_lahir" id="tmp_lahir" value="<?= (old('tmp_lahir')) ? old('tmp_lahir') : '' ?>">
 									<small class="muted text-danger"><?= $validation->getError('tmp_lahir'); ?></small>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="jalur_masuk">Jalur Masuk</label>
+									<select name="jalur_masuk" id="jalur_masuk" class="form-control">
+										<option value="">-- Jalur Masuk --</option>
+										<?php foreach($jalur as $j) : ?>
+											<option value="<?= $j->id_jalur; ?>"><?= $j->jalur_masuk; ?></option>
+										<?php endforeach; ?>
+									</select>
+									<small class="muted text-danger"><?= $validation->getError('jalur_masuk'); ?></small>
 								</div>
 							</div>
 						</div>
@@ -66,6 +78,7 @@ $ta = $db->table('tahun_ajaran')
 										 <option value="<?= $i; ?>"><?= $i; ?></option>
 										<?php endfor; ?>
 									</select>
+									<small class="muted text-danger"><?= $validation->getError('tgl'); ?></small>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -77,6 +90,7 @@ $ta = $db->table('tahun_ajaran')
 										 <option value="<?= $i; ?>"><?= $i; ?></option>
 										<?php endfor; ?>
 									</select>
+									<small class="muted text-danger"><?= $validation->getError('bulan'); ?></small>
 								</div>
 							</div>
 							<div class="col-md-4">
@@ -88,7 +102,21 @@ $ta = $db->table('tahun_ajaran')
 					              <option value="<?= $i; ?>"><?= $i; ?></option>
 					             <?php endfor; ?>
 					           </select>
+					           <small class="muted text-danger"><?= $validation->getError('tahun'); ?></small>
 					        </div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="id_jurusan">Jurusan <p class="text-danger font-weight-bold">(Jika Ada)</p></label>
+									<select name="id_jurusan" id="id_jurusan" class="form-control">
+										<option value="">-- Tidak Ada --</option>
+										<?php foreach($jurusan as $jr) : ?>
+											<option value="<?= $jr->id; ?>"><?= $jr->jurusan; ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="row">

@@ -8,7 +8,7 @@ class SiswaModel extends Model
 {
    protected $table = 'siswa';
    protected $primaryKey = 'id';
-   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir', 'no_pendaftaran', 'foto'];
+   protected $allowedFields = ['nisn', 'nama', 'password', 'tmp_lahir', 'tgl_lahir', 'no_pendaftaran', 'tgl_pendaftaran', 'id_jalur_masuk', 'foto', 'jk', 'nik', 'id_agama', 'no_telp', 'tinggi', 'berat', 'jml_saudara', 'anak_ke', 'nik_ayah', 'nama_ayah', 'pendidikan_ayah', 'pekerjaan_ayah', 'penghasilan_ayah', 'telp_ayah', 'nik_ibu', 'nama_ibu', 'pendidikan_ibu', 'pekerjaan_ibu', 'penghasilan_ibu', 'telp_ibu', 'nama_sekolah', 'tahun_lulus', 'no_izajah', 'no_skhun', 'id_provinsi', 'id_kabupaten', 'kecamatan', 'alamat', 'status_pendaftaran', 'id_jurusan', 'status_ppdb', 'tahun'];
    protected $returnType = 'App\Entities\Siswa';
 
    public function noPendaftaran()
@@ -23,11 +23,12 @@ class SiswaModel extends Model
    public function getBiodataSiswa($id_siswa)
    {
       return $this->db->table('siswa')
-              ->select('*', 'agama.id AS id_agama')
+              ->select('*, agama.id AS id_agama, siswa.id AS idSiswa')
               ->join('jalur_masuk', 'jalur_masuk.id_jalur = siswa.id_jalur_masuk', 'left')
               ->join('agama', 'id_agama = siswa.id_agama', 'left')
               ->join('kabupaten', 'kabupaten.id_kabupaten = siswa.id_kabupaten', 'left')
               ->join('provinsi', 'provinsi.id_provinsi = siswa.id_provinsi', 'left')
+              ->join('jurusan', 'jurusan.id = siswa.id_jurusan', 'left')
               ->where('siswa.id', $id_siswa)
               ->get()->getRow();
    }
@@ -86,5 +87,12 @@ class SiswaModel extends Model
       return $this->db->table('berkas')
             ->where('id_berkas', $id_berkas)
             ->get()->getRowArray();
+   }
+
+   public function updateStatusPendaftaran($status, $id_siswa)
+   {
+      $this->db->table('siswa')
+                ->where('id', $id_siswa)
+                ->update($status);
    }
 }

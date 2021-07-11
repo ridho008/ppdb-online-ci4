@@ -27,6 +27,15 @@ $errorsIdentitas = $session->getFlashdata('errors');
                 </ul>
              <?php endforeach ?>
           <?php endif; ?>
+          <?php if($siswa->status_pendaftaran == 0) : ?>
+          <div class="bg-warning p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pemberitahuan!</h5>
+            <p>Lengkapi data diri anda dengan benar, sebelum mengirim pendaftaran.</p>
+          </div>
+         <?php elseif($siswa->status_pendaftaran == 1) : ?>
+         <div class="bg-success p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pendaftaran Sudah Dikirim!</h5>
+            <p>Silahkan menunggu hingga pengumuman diumumkan.</p>
+          </div>
+         <?php endif; ?>
       </div>
       <div class="col-md-6">
          <p class="text-muted float-right">Tahun Ajaran Tahun <?= $ta['ta']; ?></p>
@@ -40,16 +49,20 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <th>No.Pendaftaran</th>
                     <th>Tanggal Pendaftaran</th>
                     <th>Jalur Pendaftaran</th>
+                    <th>Jurusan</th>
+                    <?php if($siswa->status_pendaftaran == 0) : ?>
                     <th>
                     <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#formModalPendaftaran">
                       <i class="fa fa-pencil"></i>
                     </button></th>
+                     <?php endif; ?>
                   </tr>
                   <tr>
                     <td><?= $siswa->nisn; ?></td>
                     <td><?= $siswa->no_pendaftaran; ?></td>
                     <td><?= $siswa->tgl_pendaftaran; ?></td>
                     <td><?= ($siswa->jalur_masuk) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->jalur_masuk; ?></td>
+                    <td><?= ($siswa->jurusan) == null ? '<p class="muted text-danger">Wajib Disi.</p>' : $siswa->jurusan; ?></td>
                   </tr>
                 </table>
                 <div class="row">
@@ -75,9 +88,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                      <div class="card">
                         <div class="card-header card-header-primary">
                             <h4 class="card-title text-center" style="display: inline-block;">Identitas Peserta Didik</h4>
+                            <?php if($siswa->status_pendaftaran == 0) : ?>
                             <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalIdentitas">
                               <i class="fa fa-pencil"></i>
                             </button>
+                           <?php endif; ?>
                         </div>
                        <div class="card-body">
                           <div class="row">
@@ -172,9 +187,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <div class="card">
                        <div class="card-header card-header-primary">
                            <h4 class="card-title text-center" style="display: inline-block;">Data Ayah Kandung</h4>
+                           <?php if($siswa->status_pendaftaran == 0) : ?>
                            <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalAyah">
                               <i class="fa fa-pencil"></i>
                             </button>
+                            <?php endif; ?>
                        </div>
                       <div class="card-body">
                         <div class="row">
@@ -232,9 +249,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <div class="card">
                        <div class="card-header card-header-primary">
                            <h4 class="card-title text-center" style="display: inline-block;">Data Ibu Kandung</h4>
+                           <?php if($siswa->status_pendaftaran == 0) : ?>
                            <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalIbu">
                               <i class="fa fa-pencil"></i>
                             </button>
+                         <?php endif; ?>
                        </div>
                       <div class="card-body">
                         <div class="row">
@@ -292,9 +311,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <div class="card">
                        <div class="card-header card-header-primary">
                            <h4 class="card-title text-center" style="display: inline-block;">Sekolah Asal</h4>
+                           <?php if($siswa->status_pendaftaran == 0) : ?>
                            <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalSekolah">
                               <i class="fa fa-pencil"></i>
                             </button>
+                           <?php endif; ?>
                        </div>
                       <div class="card-body">
                         <div class="row">
@@ -339,9 +360,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <div class="card">
                        <div class="card-header card-header-primary">
                            <h4 class="card-title text-center" style="display: inline-block;">Alamat Lengkap</h4>
+                           <?php if($siswa->status_pendaftaran == 0) : ?>
                            <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalAlamat">
                               <i class="fa fa-pencil"></i>
                             </button>
+                           <?php endif; ?>
                        </div>
                       <div class="card-body">
                         <div class="row">
@@ -385,9 +408,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                     <div class="card">
                        <div class="card-header card-header-primary">
                            <h4 class="card-title text-center" style="display: inline-block;">Berkas Lampiran</h4>
+                           <?php if($siswa->status_pendaftaran == 0) : ?>
                            <button type="button" class="btn btn-warning btn-xs float-right" data-toggle="modal" data-target="#formModalBerkas">
                               <i class="fa fa-plus"></i>
                            </button>
+                           <?php endif; ?>
                        </div>
                       <div class="card-body">
                         <div class="table-responsive">
@@ -398,7 +423,9 @@ $errorsIdentitas = $session->getFlashdata('errors');
                                 <th>Jenis</th>
                                 <th>Keterangan</th>
                                 <th>File</th>
+                                <?php if($siswa->status_pendaftaran == 0) : ?>
                                 <th>Action</th>
+                                 <?php endif; ?>
                               </tr>
                             </thead>
                             <tbody>
@@ -408,9 +435,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                                     <td><?=  $b['lampiran'];?></td>
                                     <td><?=  $b['ket_berkas'];?></td>
                                     <td><a href="<?= base_url('img/berkas/' . $b['berkas']); ?>"><?=  $b['berkas'];?></a></td>
+                                    <?php if($siswa->status_pendaftaran == 0) : ?>
                                     <td>
                                        <a href="<?= base_url('siswa/deleteBerkas/' . $b['id_berkas']) ?>" onclick="return confirm('Yakin')" class="btn btn-danger btn-flat"><i class="fa fa-trash"></i></a>
                                     </td>
+                                    <?php endif; ?>
                                  </tr>
                               <?php endforeach; ?>
                               <?php if(empty($berkas)) : ?>
@@ -430,7 +459,9 @@ $errorsIdentitas = $session->getFlashdata('errors');
                 <!-- Button Apply -->
                 <div class="row">
                   <div class="col-md-12">
-                    <a href="" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Simpan</a>
+                     <?php if($siswa->status_pendaftaran == 0) : ?>
+                    <button  data-toggle="modal" data-target="#formModalSimpan" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Simpan</button>
+                     <?php endif; ?>
                   </div>
                 </div>
                 <!-- /Button Apply -->
@@ -441,20 +472,18 @@ $errorsIdentitas = $session->getFlashdata('errors');
 </div>
 
 
+<?php if($siswa->status_pendaftaran == 0) : ?>
 <!-- Modal Pendaftaran -->
 <div class="modal fade" id="formModalPendaftaran" tabindex="-1" aria-labelledby="formModalLabelPendaftaran" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="formModalLabelPendaftaran">Tambah Data Agama</h5>
+        <h5 class="modal-title" id="formModalLabelPendaftaran">Ubah Data Diri</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <?= form_open('/siswa/updatePendaftaran'); ?>
-        <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
         <div class="form-group">
           <label>Nisn</label>
           <p><?= $siswa->nisn ?></p>
@@ -467,6 +496,9 @@ $errorsIdentitas = $session->getFlashdata('errors');
           <label>Tanggal Pendaftaran</label>
           <p><?= $siswa->tgl_pendaftaran ?></p>
         </div>
+        <?= form_open('/siswa/updatePendaftaran'); ?>
+        <?= csrf_field() ?>
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="form-group">
            <?= form_label('Jalur Masuk', 'Jalur Masuk'); ?>
            <select name="id_jalur_masuk" id="id_jalur_masuk" class="form-control">
@@ -479,6 +511,19 @@ $errorsIdentitas = $session->getFlashdata('errors');
              <?php endif; ?>
            <?php endforeach; ?>
            </select>
+        </div>
+        <div class="form-group">
+         <label for="id_jurusan">Jurusan <p class="text-danger font-weight-bold">(Jika Ada)</p></label>
+         <select name="id_jurusan" id="id_jurusan" class="form-control">
+            <option value="">-- Tidak Ada --</option>
+            <?php foreach($jurusan as $jr) : ?>
+               <?php if($jr->id == $siswa->id_jurusan) : ?>
+                  <option value="<?= $jr->id; ?>" selected><?= $jr->jurusan; ?></option>
+                  <?php else: ?>
+                  <option value="<?= $jr->id; ?>"><?= $jr->jurusan; ?></option>
+               <?php endif; ?>
+            <?php endforeach; ?>
+         </select>
         </div>
          <div class="modal-footer">
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -503,7 +548,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open_multipart('/siswa/ubahFoto'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="form-group">
           <label for="foto">Foto</label><br>
           <?php if($siswa->foto == null) : ?>
@@ -537,7 +582,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open('/siswa/ubahIdentitas'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -627,7 +672,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open('/siswa/ubahAyah'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -710,7 +755,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open('/siswa/ubahIbu'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
@@ -793,7 +838,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open('/siswa/ubahSekolah'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -849,7 +894,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open('/siswa/ubahAlamat'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -902,7 +947,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
       <div class="modal-body">
         <?= form_open_multipart('/siswa/insertBerkas'); ?>
         <?= csrf_field() ?>
-        <input type="hidden" name="id_siswa" value="<?= $siswa->id; ?>">
+        <input type="hidden" name="id_siswa" value="<?= $siswa->idSiswa; ?>">
         <div class="form-group">
            <label for="lampiran">Lampiran</label>
            <select name="lampiran" id="lampiran" required class="form-control">
@@ -930,6 +975,31 @@ $errorsIdentitas = $session->getFlashdata('errors');
     </div>
   </div>
 </div>
+
+
+
+<!-- Modal Simpan Data -->
+<div class="modal fade" id="formModalSimpan" tabindex="-1" aria-labelledby="formModalLabelSimpan" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabelSimpan">Peringatan !</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div class="bg-info p-3 rounded text-light" role="alert"><i class="fa fa-info-circle"></i> Data pendaftaran yang sudah dikirim tidak dapat diganti lagi, pastikan data sudah benar!.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        <a href="<?= base_url('siswa/simpanPendaftaran/' . $siswa->idSiswa); ?>" class="btn btn-primary">Kirim</a>
+      </div>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+
 <script src="/assets/js/core/jquery.min.js"></script>
 <script>
 

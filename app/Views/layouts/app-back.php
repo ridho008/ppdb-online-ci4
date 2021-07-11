@@ -45,7 +45,6 @@ $setting = $db->table('pengaturan')
       <?php endif ?>
       </div>
       <div class="sidebar-wrapper">
-        <?php var_dump(session()->get()); ?>
         <ul class="nav">
           <li class="nav-item<?= (uri_string() == 'admin') ? ' active' : '' ?>">
             <a class="nav-link" href="/admin">
@@ -53,6 +52,18 @@ $setting = $db->table('pengaturan')
               <p>Dashboard</p>
             </a>
           </li>
+          <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">settings</i>
+                Pendaftaran
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/admin/masuk"><i class="material-icons">image</i> Masuk</a>
+                <a class="dropdown-item" href="/admin/terima"><i class="material-icons">calendar_today</i> Diterima</a>
+                <a class="dropdown-item" href="/admin/tolak"><i class="material-icons">website</i> Ditolak</a>
+                <div class="dropdown-divider"></div>
+              </div>
+            </li>
           <li class="nav-item<?= (uri_string() == 'pekerjaan') ? ' active' : '' ?>">
             <a class="nav-link" href="/pekerjaan">
               <i class="material-icons">work</i>
@@ -162,6 +173,12 @@ $setting = $db->table('pengaturan')
                 echo "Beranda";
               } else if(uri_string() == 'lampiran') {
                 echo "Lampiran";
+              } else if(uri_string() == 'admin/masuk') {
+                echo "Pendaftaran Masuk";
+              } else if(uri_string() == 'admin/terima') {
+                echo "Pendaftaran Yang Diterima";
+              } else if(uri_string() == 'admin/tolak') {
+                echo "Pendaftaran Yang Ditolak";
               }
 
               ?>
