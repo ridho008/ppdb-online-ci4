@@ -228,4 +228,29 @@ class Admin extends BaseController
       return redirect()->to('/admin/masuk');
    }
 
+   // ********** Laporan Admin ***************
+   public function laporan()
+   {
+      $tahunAjaran = $this->adminModel->getAllTahunAjaran();
+      return view('admin/laporan/laporan', [
+         'title' => 'PPDB Online',
+         'subtitle' => 'Laporan Kelulusan',
+         'ta' => $tahunAjaran,
+      ]);
+   }
+
+   public function cetakLaporan($tahun)
+   {
+      $laporan = $this->adminModel->getLaporanByTahun($tahun);
+      $setting = $this->adminModel->setting();
+      return view('admin/laporan/cetak', [
+         'title' => 'Laporan Kelulusan',
+         'laporan' => $laporan,
+         'setting' => $setting,
+         'tahun' => $tahun,
+      ]);
+   }
+
+
+
 }

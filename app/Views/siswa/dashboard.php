@@ -27,14 +27,26 @@ $errorsIdentitas = $session->getFlashdata('errors');
                 </ul>
              <?php endforeach ?>
           <?php endif; ?>
-          <?php if($siswa->status_pendaftaran == 0) : ?>
-          <div class="bg-warning p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pemberitahuan!</h5>
-            <p>Lengkapi data diri anda dengan benar, sebelum mengirim pendaftaran.</p>
-          </div>
-         <?php elseif($siswa->status_pendaftaran == 1) : ?>
-         <div class="bg-success p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pendaftaran Sudah Dikirim!</h5>
-            <p>Silahkan menunggu hingga pengumuman diumumkan.</p>
-          </div>
+          <?php if($siswa->status_ppdb == 0) : ?>
+             <?php if($siswa->status_pendaftaran == 0) : ?>
+             <div class="bg-warning p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pemberitahuan!</h5>
+               <p>Lengkapi data diri anda dengan benar, sebelum mengirim pendaftaran.</p>
+             </div>
+            <?php elseif($siswa->status_pendaftaran == 1) : ?>
+            <div class="bg-primary p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Pendaftaran Sudah Dikirim!</h5>
+               <p>Silahkan menunggu hingga pengumuman diumumkan.</p>
+             </div>
+            <?php endif; ?>
+         <?php endif; ?>
+
+         <?php if($siswa->status_ppdb == 1 && $siswa->status_pendaftaran == 1) : ?>
+            <div class="bg-success p-3 rounded text-light" role="alert"><h5><i class="fa fa-check-circle"></i> Selamat Anda Lulus!</h5>
+               <p>Cetak Bukti Kelulusan Disini.</p>
+             </div>
+            <?php elseif($siswa->status_ppdb == 2) : ?>
+               <div class="bg-dark p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Maaf, Anda Belum Lolos!</h5>
+               <p>Tetap Semangat, Silahkan Coba Tahun Depan.</p>
+             </div>
          <?php endif; ?>
       </div>
       <div class="col-md-6">
@@ -78,9 +90,11 @@ $errorsIdentitas = $session->getFlashdata('errors');
                           <img src="<?= base_url('img/siswa/'. $siswa->foto); ?>" alt="" class="img-fluid">
                           <small class="muted text-danger"><?= \Config\Services::validation()->getError('foto'); ?></small>
                           <?php endif; ?>
+                          <?php if($siswa->status_pendaftaran == 0) : ?>
                           <button type="button" class="btn btn-default btn-xs btn-block" data-toggle="modal" data-target="#formModalFoto">
                             <i class="fa fa-pencil"></i>
                           </button>
+                          <?php endif; ?>
                        </div>
                      </div>
                   </div>

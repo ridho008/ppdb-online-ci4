@@ -54,13 +54,13 @@ $setting = $db->table('pengaturan')
           </li>
           <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">settings</i>
+                <i class="material-icons">app_registration</i>
                 Pendaftaran
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/admin/masuk"><i class="material-icons">image</i> Masuk</a>
-                <a class="dropdown-item" href="/admin/terima"><i class="material-icons">calendar_today</i> Diterima</a>
-                <a class="dropdown-item" href="/admin/tolak"><i class="material-icons">website</i> Ditolak</a>
+                <a class="dropdown-item" href="/admin/masuk"><i class="material-icons">archive</i> Masuk</a>
+                <a class="dropdown-item" href="/admin/terima"><i class="material-icons">check_circle</i> Diterima</a>
+                <a class="dropdown-item" href="/admin/tolak"><i class="material-icons">clear</i> Ditolak</a>
                 <div class="dropdown-divider"></div>
               </div>
             </li>
@@ -116,6 +116,12 @@ $setting = $db->table('pengaturan')
             <a class="nav-link" href="/jalurMasuk">
               <i class="material-icons">calendar_view_day</i>
               <p>Jalur Masuk</p>
+            </a>
+          </li>
+          <li class="nav-item<?= (uri_string() == 'admin/laporan') ? ' active' : '' ?>">
+            <a class="nav-link" href="/admin/laporan">
+              <i class="material-icons">content_paste</i>
+              <p>Laporan</p>
             </a>
           </li>
           <li class="nav-item dropdown">
@@ -179,6 +185,8 @@ $setting = $db->table('pengaturan')
                 echo "Pendaftaran Yang Diterima";
               } else if(uri_string() == 'admin/tolak') {
                 echo "Pendaftaran Yang Ditolak";
+              } else if(uri_string() == 'admin/laporan') {
+                echo "Laporan Pendaftaran";
               }
 
               ?>

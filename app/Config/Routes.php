@@ -41,7 +41,10 @@ $routes->group('admin', ['filter' => 'admin'], function($routes) {
    $routes->get('/masuk', 'Admin::masuk');
    $routes->get('/terima', 'Admin::terima');
    $routes->get('/tolak', 'Admin::tolak');
-   // $routes->get('/masuk/detailSiswa/(:num)', 'Admin::detailSiswa/$1');
+
+   // Laporan Admin
+   $routes->get('/laporan', 'Admin::laporan');
+
 });
 
 // $routes->group('siswa', ['filter' => 'siswa'], function($routes) {
