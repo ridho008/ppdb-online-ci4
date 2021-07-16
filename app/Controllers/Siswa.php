@@ -11,6 +11,7 @@ use \App\Models\PenghasilanModel;
 use \App\Models\PendidikanModel;
 use \App\Models\LampiranModel;
 use \App\Models\JurusanModel;
+use \App\Models\AdminModel;
 
 class Siswa extends BaseController
 {
@@ -27,6 +28,7 @@ class Siswa extends BaseController
       $this->penghasilanModel = new PenghasilanModel();
       $this->lampiranModel = new LampiranModel();
       $this->jurusanModel = new JurusanModel();
+      $this->adminModel = new AdminModel();
    }
 
 	public function index()
@@ -352,5 +354,16 @@ class Siswa extends BaseController
       $this->siswaModel->updateStatusPendaftaran($data, $id_siswa);
       $this->session->setFlashdata('success', 'Data Diri Anda Berhasil Dikirim.');
       return redirect()->to('/siswa');
+   }
+
+   public function buktiKelulusan()
+   {
+      $siswa = $this->siswaModel->getBiodataSiswa(session()->get('id'));
+      $setting = $this->adminModel->setting();
+      return view('siswa/cetak-bukti-kelulusan', [
+         'title' => 'Cetak Kelulusan',
+         'siswa' => $siswa,
+         'setting' => $setting,
+      ]);
    }
 }

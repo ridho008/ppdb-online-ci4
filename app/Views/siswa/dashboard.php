@@ -41,7 +41,7 @@ $errorsIdentitas = $session->getFlashdata('errors');
 
          <?php if($siswa->status_ppdb == 1 && $siswa->status_pendaftaran == 1) : ?>
             <div class="bg-success p-3 rounded text-light" role="alert"><h5><i class="fa fa-check-circle"></i> Selamat Anda Lulus!</h5>
-               <p>Cetak Bukti Kelulusan Disini.</p>
+               <p>Cetak Bukti Kelulusan <a href="<?= base_url('siswa/buktiKelulusan') ?>">Disini</a>.</p>
              </div>
             <?php elseif($siswa->status_ppdb == 2) : ?>
                <div class="bg-dark p-3 rounded text-light" role="alert"><h5><i class="fa fa-info-circle"></i> Maaf, Anda Belum Lolos!</h5>

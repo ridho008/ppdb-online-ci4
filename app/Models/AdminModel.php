@@ -76,5 +76,18 @@ class AdminModel extends Model
             ->get()->getRow();
    }
 
+   // *********** Dashboard ***********
+   public function countTable($table)
+   {
+      return $this->db->table($table)->countAllResults();
+   }
+
+   public function countStatusPendaftaran($statusPPDB, $statusPendaftaran)
+   {
+      return $this->db->table('siswa')
+            ->where('status_ppdb', $statusPPDB)
+            ->where('status_pendaftaran', $statusPendaftaran)
+            ->countAllResults();
+   }
    
 }

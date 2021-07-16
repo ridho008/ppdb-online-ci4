@@ -16,9 +16,17 @@ class Admin extends BaseController
 
 	public function index()
 	{
+      $user = $this->adminModel->countTable('user');
+      $tolak = $this->adminModel->countStatusPendaftaran(2, 1);
+      $terima = $this->adminModel->countStatusPendaftaran(1, 1);
+      $masuk = $this->adminModel->countStatusPendaftaran(0, 1);
 		return view('admin/dashboard', [
          'title' => 'PPDB Online',
-         'subtitle' => 'Dashboard'
+         'subtitle' => 'Dashboard',
+         'user' => $user,
+         'tolak' => $tolak,
+         'terima' => $terima,
+         'masuk' => $masuk,
       ]);
 	}
 

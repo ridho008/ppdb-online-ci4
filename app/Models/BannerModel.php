@@ -30,4 +30,21 @@ class BannerModel extends Model
                       ->like('ket', $keyword)
                       ->get($limit, $offset)->getResult();
    }
+
+   public function jumlahPendaftar()
+   {
+      return $this->db->table('siswa')
+                     ->where('tahun', date('Y'))
+                     ->where('status_pendaftaran', 1)
+                     ->countAllResults();
+   }
+
+   public function jumlahKelamin($jk)
+   {
+      return $this->db->table('siswa')
+                     ->where('tahun', date('Y'))
+                     ->where('status_pendaftaran', 1)
+                     ->where('jk', $jk)
+                     ->countAllResults();
+   }
 }

@@ -16,11 +16,17 @@ class Home extends BaseController
       // dd(session()->get());
       $beranda = $this->adminModel->detailSetting();
       $banner = $this->bannerModel->findAll();
+      $jmlPendaftaran = $this->bannerModel->jumlahPendaftar();
+      $jkPria = $this->bannerModel->jumlahKelamin('L');
+      $jkPerempuan = $this->bannerModel->jumlahKelamin('P');
 		return view('home', [
          'title' => 'PPDB Online',
          'subtitle' => 'Home',
          'banner' => $banner,
          'beranda' => $beranda,
+         'jmlPendaftaran' => $jmlPendaftaran,
+         'jkPerempuan' => $jkPerempuan,
+         'jkPria' => $jkPria,
       ]);
 	}
 

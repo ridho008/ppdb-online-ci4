@@ -40,15 +40,14 @@ $ta = $db->table('tahun_ajaran')
 			</div>
 		</div>
 		<div class="col-md-4">
+		   <?php if($ta['status'] <> 1) { ?>
+		   <h5 class="card-title"><strong>Pendaftaran Ditutup</strong></h5>
+		   <?php } else { ?>
+		   <h5 class="card-title">Tahun Ajaran <?= $ta['ta'] ?></h5>
+			<?php } ?>
 			<div class="card">
 			    <div class="card-header card-header-primary">
-			      <h4 class="card-title ">Daftar Pendaftaran</h4>
-			      <?php if($ta['status'] <> 1) { ?>
-			      <h6 class="card-title"><strong>Pendaftaran Ditutup</strong></h6>
-			      <?php } else { ?>
-			      <h6 class="card-title">Tahun Ajaran <?= $ta['ta'] ?></h6>
-			   	<?php } ?>
-
+			      <h5 class="card-title">Estimasi Pendaftaran Tahun <?= date('Y') ?></h5>
 			    </div>
 			    <div class="card-body">
 			    	<ul class="list-group list-group-flush">
@@ -56,7 +55,7 @@ $ta = $db->table('tahun_ajaran')
 			    	  	<div class="media">
 			    	  	  <i class="material-icons">delete_forever</i>
 			    	  	  <div class="media-body">
-			    	  	    <h5 class="mt-0">0 Jumlah Pendaftaran</h5>
+			    	  	    <h5 class="mt-0"><?= $jmlPendaftaran ?> Jumlah Pendaftaran</h5>
 			    	  	  </div>
 			    	  	</div>
 			    	  </li>
@@ -64,7 +63,7 @@ $ta = $db->table('tahun_ajaran')
 			    	  	<div class="media">
 			    	  	  <i class="material-icons">delete_forever</i>
 			    	  	  <div class="media-body">
-			    	  	    <h5 class="mt-0">0 Jumlah Pria</h5>
+			    	  	    <h5 class="mt-0"><?= $jkPria ?> Jumlah Pria</h5>
 			    	  	  </div>
 			    	  	</div>
 			    	  </li>
@@ -72,7 +71,7 @@ $ta = $db->table('tahun_ajaran')
 			    	  	<div class="media">
 			    	  	  <i class="material-icons">delete_forever</i>
 			    	  	  <div class="media-body">
-			    	  	    <h5 class="mt-0">0 Jumlah Perempuan</h5>
+			    	  	    <h5 class="mt-0"><?= $jkPerempuan ?> Jumlah Perempuan</h5>
 			    	  	  </div>
 			    	  	</div>
 			    	  </li>
